@@ -1,7 +1,5 @@
 package analyse.test;
 
-import org.junit.Before;
-
 import analyse.domain.analyseservice.AnalyseController;
 import analyse.domain.analyseservice.dto.AnalysedModuleDTO;
 import analyse.domain.analyseservice.dto.DependencyDTO;
@@ -12,7 +10,6 @@ public class TestDomein extends TestCase{
 
 	private AnalyseController service;
 	
-	@Before
 	public void setUp(){
 		service = new AnalyseController();
 	}
