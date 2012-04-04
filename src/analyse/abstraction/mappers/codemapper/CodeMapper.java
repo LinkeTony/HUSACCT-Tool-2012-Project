@@ -1,5 +1,8 @@
 package analyse.abstraction.mappers.codemapper;
 
+import analyse.abstraction.mappers.csharpmapper.CSharpMapper;
+import analyse.abstraction.mappers.javamapper.JavaMapper;
+
 public class CodeMapper implements CodeMapperService{
 
 	private MapperBuilder builder;
@@ -10,27 +13,19 @@ public class CodeMapper implements CodeMapperService{
 	
 	@Override
 	public void analyseApplication() {
-		String applicationLanguage = getApplicationService();
-		Object mapper = builder.getMapper("java");
+		//TODO get applicationdetails frtom define-service and replace hard-coded "java"
+		GenericMapper mapper = builder.getMapper(JavaMapper.programmingLanguage);
+		mapper.analyseApplication();
+		//todo mapper.doWork()
 	}
 
 	@Override
 	public String[] getAvailableLanguages() {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO Add other functionality to dynamically load all possible languages. 
+		String[] availableLanguages = new String[]{
+			JavaMapper.programmingLanguage,
+			CSharpMapper.programmingLanguage
+		};
+		return availableLanguages;
 	}
-
-	private String getApplicationService(){
-//		ApplicationDetailDTO details = defineService.getApplicationDetails();
-//		return details.language;
-		return "";
-	}
-	
-	public static void main(String[] args){
-		
-		String packagePath = CodeMapper.class.getPackage().getName();
-		
-		System.out.println("Path: " + packagePath);
-	}
-	
 }
