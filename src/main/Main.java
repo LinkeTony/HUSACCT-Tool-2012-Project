@@ -9,8 +9,8 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeAdaptor;
 import org.antlr.runtime.tree.TreeAdaptor;
 
-import analyse.abstraction.javamapper.antlr.javaLexer;
-import analyse.abstraction.javamapper.antlr.javaParser;
+import analyse.abstraction.mappers.javamapper.antlr.javaLexer;
+import analyse.abstraction.mappers.javamapper.antlr.javaParser;
 
 public class Main {
 
