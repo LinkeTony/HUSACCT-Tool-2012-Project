@@ -1,6 +1,6 @@
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/Erik/Documents/Hogeschool Utrecht/Jaar 3/Specialisatie/ThemaOpdracht/HUSACCT Develop/HUSACCT 2012/src/analyse/abstraction/codemapper/grammars/java/java.g 2012-04-02 14:55:47
 
-package analyse.abstraction.mappers.javamapper.antlr;
+package analyse.infrastructure.antlr;
 
 
 import org.antlr.runtime.*;
