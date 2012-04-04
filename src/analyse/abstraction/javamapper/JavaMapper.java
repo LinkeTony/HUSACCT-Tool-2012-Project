@@ -1,8 +1,10 @@
 package analyse.abstraction.javamapper;
 
-import analyse.abstraction.codemapper.MapperStrategy;
+import analyse.abstraction.codemapper.MapperBuilder;
 
-class JavaMapper extends MapperStrategy{
+public class JavaMapper implements JavaMapperService{
+	
+	public static String language = "Java";
 	
 	@Override
 	public void analyseApplication() {
@@ -10,9 +12,4 @@ class JavaMapper extends MapperStrategy{
 		
 	}	
 	
-	
-	@Override
-	public String getLanguage() {
-		return "Java";
-	}
 }
