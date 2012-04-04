@@ -32,19 +32,23 @@ public class TestDomein extends TestCase{
 	}
 	
 	public void testGetChildInModule(){
-		AnalysedModuleDTO[] modules = service.getChildModulesInModule("domain.locationbased.foursquare");
-		assertEquals(4, modules.length);
-		assertEquals("Account", modules[0].name);
-		assertEquals("domain.locationbased.foursquare.Account", modules[0].uniqueName);
+		AnalysedModuleDTO[] modules = service.getChildModulesInModule("domain.locationbased");
+		assertEquals(2, modules.length);
+		assertEquals("domain.locationbased.latitude", modules[1].uniqueName);
+		assertEquals("domain.locationbased.foursquare", modules[0].uniqueName);
 		
-		assertEquals("Friends", modules[1].name);
-		assertEquals("domain.locationbased.foursquare.Friends", modules[1].uniqueName);
 		
-		assertEquals("Map", modules[2].name);
-		assertEquals("domain.locationbased.foursquare.Map", modules[2].uniqueName);
+		assertEquals("Account", modules[0].subModules.get(0).name);
+		assertEquals("domain.locationbased.foursquare.Account", modules[0].subModules.get(0).uniqueName);
 		
-		assertEquals("History", modules[3].name);
-		assertEquals("domain.locationbased.foursquare.History", modules[3].uniqueName);
+		assertEquals("Friends", modules[0].subModules.get(1).name);
+		assertEquals("domain.locationbased.foursquare.Friends", modules[0].subModules.get(1).uniqueName);
+		
+		assertEquals("Map", modules[0].subModules.get(2).name);
+		assertEquals("domain.locationbased.foursquare.Map", modules[0].subModules.get(2).uniqueName);
+		
+		assertEquals("History", modules[0].subModules.get(3).name);
+		assertEquals("domain.locationbased.foursquare.History", modules[0].subModules.get(3).uniqueName);
 	}
 	
 	public void testGetChildModulesInDepth(){
