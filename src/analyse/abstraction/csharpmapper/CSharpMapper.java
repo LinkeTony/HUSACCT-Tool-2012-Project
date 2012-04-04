@@ -1,5 +1,11 @@
 package analyse.abstraction.csharpmapper;
 
-class CSharpMapper {
+public class CSharpMapper implements CSharpMapperService{
+
+	@Override
+	public void analyseApplication(String[] rootPaths) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
