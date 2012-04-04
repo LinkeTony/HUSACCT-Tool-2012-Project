@@ -9,17 +9,21 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeAdaptor;
 import org.antlr.runtime.tree.TreeAdaptor;
 
+import analyse.abstraction.mappers.javamapper.antlr.javaLexer;
+import analyse.abstraction.mappers.javamapper.antlr.javaParser;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
         new Main().init();
     }
+    
 
     public void init() throws Exception {
         // Read the source
 
         CharStream c = new ANTLRFileStream(
-            "/Users/Thijmen/Documents/advanced_programming/salarySystem_refactored/src/salarySystem/salarySystem.java","UTF-8");
+            "/Users/Erik/Documents/Hogeschool Utrecht/Jaar 3/Specialisatie/ThemaOpdracht/Soccerapp/Workspace/Soccer/src/controller/ExceptionController.java","UTF-8");
 
         // create the lexer attached to stdin
         Lexer lexer = new javaLexer(c);

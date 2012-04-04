@@ -1,4 +1,4 @@
-package analyse.abstraction.csharpmapper;
+package analyse.abstraction.mappers.csharpmapper;
 
 public interface CSharpMapperService {
 	

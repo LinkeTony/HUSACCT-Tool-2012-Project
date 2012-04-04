@@ -236,7 +236,7 @@ tokens {
 }
 
 @header {
-package com.habelitz.jsobjectizer.unmarshaller.antlrbridge.generated;
+  package ;
 }
 
 @members {
@@ -304,7 +304,7 @@ package com.habelitz.jsobjectizer.unmarshaller.antlrbridge.generated;
 }
 
 @lexer::header {
-package com.habelitz.jsobjectizer.unmarshaller.antlrbridge.generated;
+ package ;
 }
 
 @lexer::members {
