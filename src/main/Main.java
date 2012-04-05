@@ -1,13 +1,15 @@
 package main;
 
-import analyse.abstraction.mappers.codemapper.CodeMapper;
-import analyse.abstraction.mappers.codemapper.CodeMapperService;
+import husacct.analyse.AnalyseServiceImpl;
+import husacct.analyse.IAnalyseService;
+import husacct.analyse.abstraction.mappers.codemapper.CodeMapper;
+import husacct.analyse.abstraction.mappers.codemapper.CodeMapperService;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-    	CodeMapperService mapper = new CodeMapper();
-    	mapper.analyseApplication();
+    	IAnalyseService analyseService = new AnalyseServiceImpl();
+    	analyseService.analyseApplication();
     }
     
 }
