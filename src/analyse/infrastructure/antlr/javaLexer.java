@@ -1,12 +1,17 @@
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/Erik/Documents/Hogeschool Utrecht/Jaar 3/Specialisatie/ThemaOpdracht/HUSACCT Develop/HUSACCT 2012/src/analyse/abstraction/codemapper/grammars/java/java.g 2012-04-02 14:55:49
 
-package analyse.abstraction.mappers.javamapper.antlr;
+package analyse.infrastructure.antlr;
 
 
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 
 public class javaLexer extends Lexer {
     public static final int PACKAGE=84;
