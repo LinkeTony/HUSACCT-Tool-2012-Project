@@ -11,7 +11,7 @@ import analyse.domain.famix.FamixModel;
 import analyse.domain.famix.FamixPackage;
 
 public class ASTScanner {
-	FamixModel model = new FamixModel();
+	FamixModel model = FamixModel.getInstance();
 	public void generateFamixModelFromAST(CommonTree ast) {
 		List<CommonTree> Children = ast.getChildren();
 		for(CommonTree child : Children){

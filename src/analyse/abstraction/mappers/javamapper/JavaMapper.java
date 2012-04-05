@@ -12,7 +12,7 @@ public class JavaMapper implements GenericMapper{
 	@Override
 	public void analyseApplication() {
 		// TODO Recursieve functie om door de gehele applicatie heen te lopen; filePath komt van defineservice
-		String filePath = "/Users/Thijmen/Documents/project/salarySystem_refactored/src/Employees/ExEmployees/test/test2/test3/Test3.java";
+		String filePath = "/Users/Erik/Documents/Hogeschool Utrecht/Jaar 3/Specialisatie/ThemaOpdracht/Soccerapp/Workspace/DefinitionService/src/nl/torpedo/definitionservice/DefinitionService.java";
 		
 		
 		try {

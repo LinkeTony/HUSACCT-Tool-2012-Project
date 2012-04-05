@@ -1,11 +1,7 @@
 package analyse.abstraction.mappers.javamapper.famixObjectGenerators;
 
-import javax.naming.directory.InvalidAttributesException;
-
 import org.antlr.runtime.tree.CommonTree;
-
 import analyse.domain.famix.FamixPackage;
-
 public class JavaPackageGenerator {
 	
 	String token = "";
