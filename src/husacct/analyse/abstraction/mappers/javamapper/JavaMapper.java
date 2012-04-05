@@ -26,11 +26,18 @@ public class JavaMapper implements GenericMapper{
 		}
 	}	
 	
+	
 	private void analyse(String workspacePath) throws Exception {
 		List<MetaFile> paths = walk(workspacePath);
+		int linenumbers = 0;
 		for (MetaFile metaFile : paths){
+			System.out.println(metaFile.getPath() + " file " + paths.indexOf(metaFile) + "/" + paths.size());
+			System.out.println("Number of lines: " + metaFile.getLineNumber());
+			JavaASTGenerator astGenerator = new JavaASTGenerator();
 			CommonTree ast = astGenerator.generateAST(metaFile.getPath());
 			astScanner.generateFamixModelFromAST(ast);
+			linenumbers += metaFile.getLineNumber();
+			System.out.println(linenumbers);
 		}
 	}
 	private List<MetaFile> walk(String path) throws IOException {
@@ -38,7 +45,16 @@ public class JavaMapper implements GenericMapper{
 		File[] list = root.listFiles();
 		List<MetaFile> paths = new ArrayList<MetaFile>();
 		for (File f : list) {
-			paths.addAll(walkEveryFile(f, paths));
+			if (f.isDirectory()) {
+				paths.addAll(walk(f.getAbsolutePath()));
+			}
+			else {
+				if (getSourceFiles(f.getAbsolutePath())){
+					LineNumberReader  lnr = new LineNumberReader(new FileReader(f));
+					lnr.skip(Long.MAX_VALUE);
+					paths.add(new MetaFile(f.getAbsolutePath(),lnr.getLineNumber()));
+				}
+			}
 		}
 		return paths;
 	}
