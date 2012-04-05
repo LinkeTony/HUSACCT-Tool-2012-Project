@@ -13,7 +13,7 @@ import org.antlr.runtime.tree.CommonTree;
 
 public class ASTScanner {
 	
-	FamixModel model = FamixModel.getInstance();
+	FamixModel model = new FamixModel();
 	
 	public void generateFamixModelFromAST(CommonTree ast) {
 	
