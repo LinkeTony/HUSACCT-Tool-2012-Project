@@ -7,6 +7,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
     	CodeMapperService mapper = new CodeMapper();
-    	mapper.analyseApplication();
+    	mapper.analyseApplication("C:\\Users\\Thomas\\workspace\\Thema Opdracht 9");
     }
 }

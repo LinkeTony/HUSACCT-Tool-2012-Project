@@ -12,10 +12,10 @@ public class CodeMapper implements CodeMapperService{
 	}
 	
 	@Override
-	public void analyseApplication() {
+	public void analyseApplication(String workspacePath) {
 		//TODO get applicationdetails frtom define-service and replace hard-coded "java"
 		GenericMapper mapper = builder.getMapper(JavaMapper.programmingLanguage);
-		mapper.analyseApplication();
+		mapper.analyseApplication(workspacePath);
 		//todo mapper.doWork()
 	}
 

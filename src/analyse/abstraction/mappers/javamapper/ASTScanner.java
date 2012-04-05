@@ -13,8 +13,8 @@ import analyse.domain.famix.FamixPackage;
 public class ASTScanner {
 	FamixModel model = new FamixModel();
 	public void generateFamixModelFromAST(CommonTree ast) {
-		List<CommonTree> Children = ast.getChildren();
-		for(CommonTree child : Children){
+		List<CommonTree> children = ast.getChildren();
+		for(CommonTree child : children){
 			if(child.getType() == 84){
 				JavaPackageGenerator generator = new JavaPackageGenerator();
 				FamixPackage famixPackageObject = generator.generateFamixPackage(child);
