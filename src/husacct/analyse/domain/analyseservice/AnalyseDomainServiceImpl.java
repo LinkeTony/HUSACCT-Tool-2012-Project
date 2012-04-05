@@ -1,51 +1,56 @@
 package husacct.analyse.domain.analyseservice;
 
-import husacct.analyse.AnalyseServiceStub;
+import husacct.analyse.abstraction.mappers.codemapper.CodeMapper;
+import husacct.analyse.abstraction.mappers.codemapper.CodeMapperService;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
-public class AnalyseServiceImpl implements AnalyseService{
+public class AnalyseDomainServiceImpl implements AnalyseDomainService{
 
-	private AnalyseServiceStub stub;
+	CodeMapperService mapperService; 
+
+	public AnalyseDomainServiceImpl(){
+		this.mapperService = new CodeMapper();
+	}
 	
-	public AnalyseServiceImpl(){
-		stub = new AnalyseServiceStub();
+	@Override
+	public String[] getAvailableLanguages() {
+		return mapperService.getAvailableLanguages();
 	}
 	
 	@Override
 	public DependencyDTO[] getDependency(String from, String to) {		
-		return stub.getDependency(from, to);
+		//TODO 
+		return null;
 	}
 
 	@Override
 	public DependencyDTO[] getDependency(String from) {
-		return stub.getDependency(from);
+		//TODO 
+		return null;
 	}
 
 	@Override
-	public String[] getAvailableLanguages() {
-		return stub.getAvailableLanguages();
-	}
-	
-	@Override
 	public AnalysedModuleDTO[] getChildModulesInModule(String from) {
-		return stub.getChildModulesInModule(from);
+		//TODO 
+		return null;
 	}
 
 	@Override
 	public AnalysedModuleDTO[] getChildModulesInModule(String from, int depth) {
-		return stub.getChildModulesInModule(from, depth);
+		//TODO 
+		return null;
 	}
 
 	@Override
 	public AnalysedModuleDTO[] getRootModules() {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 
 	@Override
 	public AnalysedModuleDTO getParentModuleForModule(String child) {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 

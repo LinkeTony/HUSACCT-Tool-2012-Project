@@ -2,18 +2,18 @@ package husacct.analyse.task;
 
 import husacct.analyse.abstraction.mappers.codemapper.CodeMapper;
 import husacct.analyse.abstraction.mappers.codemapper.CodeMapperService;
-import husacct.analyse.domain.analyseservice.AnalyseServiceImpl;
-import husacct.analyse.domain.analyseservice.AnalyseService;
+import husacct.analyse.domain.analyseservice.AnalyseDomainServiceImpl;
+import husacct.analyse.domain.analyseservice.AnalyseDomainService;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
 public class AnalyseControlerServiceImpl implements AnalyseControlService{
 
-	private AnalyseService domainService;
+	private AnalyseDomainService domainService;
 	private CodeMapperService mapperService;
 	
 	public AnalyseControlerServiceImpl(){
-		this.domainService = new AnalyseServiceImpl();
+		this.domainService = new AnalyseDomainServiceImpl();
 		this.mapperService = new CodeMapper();
 	}
 	

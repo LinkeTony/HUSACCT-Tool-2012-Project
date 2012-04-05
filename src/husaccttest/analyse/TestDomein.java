@@ -1,6 +1,6 @@
 package husaccttest.analyse;
 
-import husacct.analyse.domain.analyseservice.AnalyseServiceImpl;
+import husacct.analyse.domain.analyseservice.AnalyseDomainServiceImpl;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 import junit.framework.*;
@@ -8,10 +8,10 @@ import junit.framework.*;
 
 public class TestDomein extends TestCase{
 
-	private AnalyseServiceImpl service;
+	private AnalyseDomainServiceImpl service;
 	
 	public void setUp(){
-		service = new AnalyseServiceImpl();
+		service = new AnalyseDomainServiceImpl();
 	}
 	
 	public void testAvailableLanguages(){

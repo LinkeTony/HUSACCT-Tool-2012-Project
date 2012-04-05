@@ -3,7 +3,7 @@ package husacct.analyse.domain.analyseservice;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
-public interface AnalyseService {
+public interface AnalyseDomainService {
 	
 	public DependencyDTO[] getDependency(String from, String to);
 	public DependencyDTO[] getDependency(String from);
