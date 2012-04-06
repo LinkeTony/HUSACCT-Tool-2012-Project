@@ -1,6 +1,7 @@
 package husacct.analyse.abstraction.mappers.javamapper;
 
 import husacct.analyse.abstraction.mappers.codemapper.GenericMapper;
+import husacct.analyse.infrastructure.antlr.JavaTreeParser;
 
 import java.io.File;
 import java.io.FileReader;
@@ -34,7 +35,7 @@ public class JavaMapper implements GenericMapper{
 			System.out.println(metaFile.getPath() + " file " + paths.indexOf(metaFile) + "/" + paths.size());
 			System.out.println("Number of lines: " + metaFile.getLineNumber());
 			JavaASTGenerator astGenerator = new JavaASTGenerator();
-			CommonTree ast = astGenerator.generateAST(metaFile.getPath());
+			JavaTreeParser ast = astGenerator.generateAST(metaFile.getPath());
 			astScanner.generateFamixModelFromAST(ast);
 			linenumbers += metaFile.getLineNumber();
 			System.out.println(linenumbers);
