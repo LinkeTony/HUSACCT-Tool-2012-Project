@@ -1,7 +1,5 @@
 package husacct.analyse.abstraction.mappers.javamapper;
 
-import husacct.analyse.infrastructure.antlr.JavaTreeParser;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,20 +9,9 @@ import java.util.List;
 
 public class WorkspaceAnalyser {
 
-	private ASTScanner astScanner = new ASTScanner();
-	
-	void analyse(String workspacePath) throws Exception {
+	List<MetaFile> getFilePathsFromWorkspace(String workspacePath) throws Exception {
 		List<MetaFile> paths = walk(workspacePath);
-		int linenumbers = 0;
-		for (MetaFile metaFile : paths){
-			System.out.println(metaFile.getPath() + " file " + paths.indexOf(metaFile) + "/" + paths.size());
-			System.out.println("Number of lines: " + metaFile.getLineNumber());
-			JavaASTGenerator astGenerator = new JavaASTGenerator();
-			JavaTreeParser ast = astGenerator.generateAST(metaFile.getPath());
-			astScanner.generateFamixModelFromAST(ast);
-			linenumbers += metaFile.getLineNumber();
-			System.out.println(linenumbers);
-		}
+		return paths;
 	}
 	
 	private List<MetaFile> walk(String path) throws IOException {

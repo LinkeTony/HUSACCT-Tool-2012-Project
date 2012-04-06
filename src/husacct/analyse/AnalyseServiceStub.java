@@ -1,6 +1,5 @@
 package husacct.analyse;
 
-import husacct.analyse.domain.analyseservice.AnalyseDomainService;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
@@ -12,8 +11,6 @@ import java.util.List;
 class AnalyseServiceStub implements IAnalyseService{
 
 	private HashMap<String, ArrayList<Object>> analysed;
-	
-	
 	public AnalyseServiceStub(){
 				
 		ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();

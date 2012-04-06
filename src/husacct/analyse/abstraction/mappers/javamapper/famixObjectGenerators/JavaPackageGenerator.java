@@ -1,9 +1,10 @@
 package husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators;
 
+import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.domain.famix.FamixPackage;
 
 import org.antlr.runtime.tree.CommonTree;
-public class JavaPackageGenerator {
+public class JavaPackageGenerator implements JavaGenerator{
 	
 	String token = "";
 	String belongsToPackage = "";
@@ -11,30 +12,32 @@ public class JavaPackageGenerator {
 	Boolean tokenSet = false;
 	FamixPackage famixPackage = new FamixPackage();
 	
-	public FamixPackage generateFamixPackage(CommonTree tree){
-		if (tree != null) {
-			if(tree.getType() == 84){
-				if(tree.getChild(0).getType() != 15){
-					token = tree.getChild(0).toString();
+
+	@Override
+	public FamixObject generateFamix(CommonTree commonTree) {
+		if (commonTree != null) {
+			if(commonTree.getType() == 84){
+				if(commonTree.getChild(0).getType() != 15){
+					token = commonTree.getChild(0).toString();
 				}else{
-					generateFamixPackage((CommonTree) tree.getChild(0));
+					generateFamix((CommonTree) commonTree.getChild(0));
 				}
-			}else if(tree.getChild(0) != null && tree.getChild(0).getType() == 164 && tokenSet != true){
+			}else if(commonTree.getChild(0) != null && commonTree.getChild(0).getType() == 164 && tokenSet != true){
 				System.out.println("1 packages");	
-				belongsToPackage = tree.getChild(0).toString();
-				token = tree.getChild(1).toString();
+				belongsToPackage = commonTree.getChild(0).toString();
+				token = commonTree.getChild(1).toString();
 				tokenSet = true;
-			}else if(tree.getChild(0) != null && tree.getChild(0).getType() == 15 && tokenSet != true){
-				token = tree.getChild(1).toString();
+			}else if(commonTree.getChild(0) != null && commonTree.getChild(0).getType() == 15 && tokenSet != true){
+				token = commonTree.getChild(1).toString();
 				tokenSet = true;
-				generateFamixPackage((CommonTree) tree.getChild(0));				
-			}else if (tree.getChild(0) != null && (tree.getChild(0).getType() == 164 || tree.getChild(0).getType() == 15) ){
-				if(tree.getChild(0).getType() == 15){
-					belongsToPackage = tree.getChild(1).toString() + "." + belongsToPackage; 
-					generateFamixPackage((CommonTree) tree.getChild(0));	
+				generateFamix((CommonTree) commonTree.getChild(0));				
+			}else if (commonTree.getChild(0) != null && (commonTree.getChild(0).getType() == 164 || commonTree.getChild(0).getType() == 15) ){
+				if(commonTree.getChild(0).getType() == 15){
+					belongsToPackage = commonTree.getChild(1).toString() + "." + belongsToPackage; 
+					generateFamix((CommonTree) commonTree.getChild(0));	
 				}else{
-					belongsToPackage = tree.getChild(1).toString() + "." + belongsToPackage; 
-					belongsToPackage = tree.getChild(0).toString() + "." + belongsToPackage; 
+					belongsToPackage = commonTree.getChild(1).toString() + "." + belongsToPackage; 
+					belongsToPackage = commonTree.getChild(0).toString() + "." + belongsToPackage; 
 				}
 			}
 			famixPackage.setName(token);
@@ -43,7 +46,6 @@ public class JavaPackageGenerator {
 			
 		}
 		return famixPackage;
-	
-        	
-    }
+
+	}
 }
