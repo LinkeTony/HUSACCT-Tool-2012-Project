@@ -18,7 +18,7 @@ import org.antlr.runtime.tree.TreeAdaptor;
 
 public class JavaTreeParserBuilder {
 	
-	public JavaTreeParser generateAST(String filePath) throws Exception {
+	public JavaTreeParser generateTreeParser(String filePath) throws Exception {
         // Read the source
         CharStream c = new ANTLRFileStream(filePath,"UTF-8");
         // create the lexer attached to stdin
