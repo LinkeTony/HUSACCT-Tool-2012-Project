@@ -10,13 +10,10 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.runtime.tree.CommonTree;
-
-
 public class JavaMapper implements GenericMapper{
 	public static String programmingLanguage = "Java";
-	JavaASTGenerator astGenerator = new JavaASTGenerator();
-	ASTScanner astScanner = new ASTScanner();
+	JavaTreeParserBuilder astGenerator = new JavaTreeParserBuilder();
+	JavaTreeParserDelegater astScanner = new JavaTreeParserDelegater();
 	
 	@Override
 	public void analyseApplication(String workspacePath) {
@@ -34,9 +31,9 @@ public class JavaMapper implements GenericMapper{
 		for (MetaFile metaFile : paths){
 			System.out.println(metaFile.getPath() + " file " + paths.indexOf(metaFile) + "/" + paths.size());
 			System.out.println("Number of lines: " + metaFile.getLineNumber());
-			JavaASTGenerator astGenerator = new JavaASTGenerator();
+			JavaTreeParserBuilder astGenerator = new JavaTreeParserBuilder();
 			JavaTreeParser ast = astGenerator.generateAST(metaFile.getPath());
-			astScanner.generateFamixModelFromAST(ast);
+			astScanner.delegateFamixObjectGenerators(ast);
 			linenumbers += metaFile.getLineNumber();
 			System.out.println(linenumbers);
 		}

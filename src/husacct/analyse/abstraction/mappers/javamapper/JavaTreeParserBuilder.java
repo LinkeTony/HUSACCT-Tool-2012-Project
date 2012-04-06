@@ -16,19 +16,16 @@ import org.antlr.runtime.tree.TreeAdaptor;
 
 
 
-public class JavaASTGenerator {
+public class JavaTreeParserBuilder {
 	
 	public JavaTreeParser generateAST(String filePath) throws Exception {
         // Read the source
-
         CharStream c = new ANTLRFileStream(filePath,"UTF-8");
-
         // create the lexer attached to stdin
         Lexer lexer = new JavaLexer(c);
-
         // create the buffer of tokens between the lexer and parser
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        
+       
         JavaParser parser = new JavaParser(tokens);
         
         javaSource_return javasource = parser.javaSource();

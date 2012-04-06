@@ -1,22 +1,14 @@
 package husacct.analyse.abstraction.mappers.javamapper;
 
-import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaPackageGenerator;
 import husacct.analyse.domain.famix.FamixModel;
-import husacct.analyse.domain.famix.FamixPackage;
 import husacct.analyse.infrastructure.antlr.JavaTreeParser;
 
-import java.util.List;
 
-import javax.naming.directory.InvalidAttributesException;
-
-import org.antlr.runtime.tree.CommonTree;
-
-
-public class ASTScanner {
+public class JavaTreeParserDelegater {
 	
 	FamixModel model = FamixModel.getInstance();
 	
-	public void generateFamixModelFromAST(JavaTreeParser ast) {
+	public void delegateFamixObjectGenerators(JavaTreeParser ast) {
 	
 //		List<CommonTree> children = ast.getChildren();
 //		for(CommonTree child : children){
