@@ -1,5 +1,6 @@
 package husacct.analyse.abstraction.mappers.javamapper;
 
+import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaAttributeGenerator;
 import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaClassGenerator;
 import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaPackageGenerator;
 import husacct.analyse.domain.famix.FamixClass;
@@ -37,27 +38,26 @@ public class JavaTreeParserDelegater {
 		//List<CommonTree> children = compilationUnitTree.getChildren();
 		packageTree = compilationUnitTree.getFirstChildWithType(packageType);
 		classTree = compilationUnitTree.getFirstChildWithType(classType);
-//		for(CommonTree child : children){
-//			checkChildren(child);
-//		}
+//		
 		if(packageTree != null){
-			delegatePackageTree(packageTree);
+			delegatePackage(packageTree);
 		}
 		if(classTree != null){
-			delegateClassTree(classTree);
+			delegateClass(classTree);
 		}
 		if(classTopLevelScopeTree != null){
-			
+			delegateTopLevelScopeTree(classTopLevelScopeTree);
 		}
 		return famixObjects;
 	}
-	public void delegatePackageTree(Tree packageTree){
+	public void delegatePackage(Tree packageTree){
 		JavaPackageGenerator javaPackageGenerator = new JavaPackageGenerator();
 		famixPackageObject = javaPackageGenerator.generateFamix((CommonTree) packageTree.getChild(0));
 		famixObjects.add(famixPackageObject);
 	}
-	public void delegateClassTree(Tree classTree){
+	public void delegateClass(Tree classTree){
 		JavaClassGenerator javaClassGenerator = new JavaClassGenerator();
+		
 		javaClassGenerator.setPackageNameAndUniqueName(famixPackageObject.getName(), famixPackageObject.getUniqueName());
 		famixClassObject = javaClassGenerator.generateFamix((CommonTree) classTree);
 		famixObjects.add(famixClassObject);
@@ -66,27 +66,14 @@ public class JavaTreeParserDelegater {
 			classTopLevelScopeTree = classTopLevelScopeTreeChild;
 		}
 		
-		//checkChildren((CommonTree)classTree.getChild((classTree.getChildCount()-1)));
-	}
-	public void checkChildren(Tree tree){
-		System.out.println(tree.getText());
-		if(tree.getText().equals("ANNOTATION_LIST")){
-			//iets
-		}
-		if(tree.getText().equals("package")){
-			JavaPackageGenerator javaPackageGenerator = new JavaPackageGenerator();
-			famixPackageObject = javaPackageGenerator.generateFamix((CommonTree) tree.getChild(0));
-			famixObjects.add(famixPackageObject);
-		}
-		if(tree.getText() == "class"){
-			
-			
-		}
-		if(tree.getText() == "CLASS_TOP_LEVEL_SCOPE"){
-			
-		}
 		
-			
 	}
+	public void delegateAttribute(Tree scopeTree, FamixClass classObject){
+		JavaAttributeGenerator javaAttributeGenerator = new JavaAttributeGenerator();
+		//javaAttributeGenerator.generateFamix(scopeTree);
 		
+	}
+	public void delegateTopLevelScopeTree(Tree scopeTree){
+		System.out.println(scopeTree.getChildCount());
+	}	
 }
