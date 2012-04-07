@@ -26,9 +26,9 @@ public class JavaMapper implements GenericMapper{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for(FamixObject fm : famixObject){
-			fm.toString();
-		}
+//		for(FamixObject fm : famixObject){
+//			fm.toString();
+//		}
 		return famixObject;
 		
 		
