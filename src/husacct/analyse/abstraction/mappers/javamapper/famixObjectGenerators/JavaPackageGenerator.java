@@ -3,47 +3,51 @@ package husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators;
 import husacct.analyse.domain.famix.FamixPackage;
 
 import org.antlr.runtime.tree.CommonTree;
-public class JavaPackageGenerator {
+public class JavaPackageGenerator extends JavaGenerator{
 	
-	String token = "";
+	String name = "";
 	String belongsToPackage = "";
 	String packageName = "";
 	Boolean tokenSet = false;
 	FamixPackage famixPackage = new FamixPackage();
 	
-	public FamixPackage generateFamixPackage(CommonTree tree){
-		if (tree != null) {
-			if(tree.getType() == 84){
-				if(tree.getChild(0).getType() != 15){
-					token = tree.getChild(0).toString();
-				}else{
-					generateFamixPackage((CommonTree) tree.getChild(0));
-				}
-			}else if(tree.getChild(0) != null && tree.getChild(0).getType() == 164 && tokenSet != true){
-				System.out.println("1 packages");	
-				belongsToPackage = tree.getChild(0).toString();
-				token = tree.getChild(1).toString();
+
+	public FamixPackage generateFamix(CommonTree packageNode) {
+		System.out.println(packageNode.getChild(0));
+		if (packageNode != null) {
+			if(packageNode.getChild(0).getType() != 15){
+				name = packageNode.getChild(0).toString();
+			}else{
+				generateFamix((CommonTree) packageNode.getChild(0));
+			}
+			if(packageNode.getChild(0) != null && packageNode.getChild(0).getType() == 164 && tokenSet != true){
+				belongsToPackage = packageNode.getChild(0).toString();
+				name = packageNode.getChild(1).toString();
 				tokenSet = true;
-			}else if(tree.getChild(0) != null && tree.getChild(0).getType() == 15 && tokenSet != true){
-				token = tree.getChild(1).toString();
+			}else if(packageNode.getChild(0) != null && packageNode.getChild(0).getType() == 15 && tokenSet != true){
+				name = packageNode.getChild(1).toString();
 				tokenSet = true;
-				generateFamixPackage((CommonTree) tree.getChild(0));				
-			}else if (tree.getChild(0) != null && (tree.getChild(0).getType() == 164 || tree.getChild(0).getType() == 15) ){
-				if(tree.getChild(0).getType() == 15){
-					belongsToPackage = tree.getChild(1).toString() + "." + belongsToPackage; 
-					generateFamixPackage((CommonTree) tree.getChild(0));	
+				generateFamix((CommonTree) packageNode.getChild(0));				
+			}else if (packageNode.getChild(0) != null && (packageNode.getChild(0).getType() == 164 || packageNode.getChild(0).getType() == 15) ){
+				if(packageNode.getChild(0).getType() == 15){
+					belongsToPackage = packageNode.getChild(1).toString() + "." + belongsToPackage; 
+					generateFamix((CommonTree) packageNode.getChild(0));	
 				}else{
-					belongsToPackage = tree.getChild(1).toString() + "." + belongsToPackage; 
-					belongsToPackage = tree.getChild(0).toString() + "." + belongsToPackage; 
+					belongsToPackage = packageNode.getChild(1).toString() + "." + belongsToPackage; 
+					belongsToPackage = packageNode.getChild(0).toString() + "." + belongsToPackage; 
 				}
 			}
-			famixPackage.setName(token);
-			famixPackage.setUniqueName(belongsToPackage+token);
+			famixPackage.setName(name);
+			if(belongsToPackage.equals("")){
+				famixPackage.setUniqueName(belongsToPackage+"."+name);
+			}else{
+				famixPackage.setUniqueName(belongsToPackage+"."+name);
+			}
+			
 			famixPackage.setBelongsToPackage(belongsToPackage.toString());
 			
 		}
 		return famixPackage;
-	
-        	
-    }
+
+	}
 }

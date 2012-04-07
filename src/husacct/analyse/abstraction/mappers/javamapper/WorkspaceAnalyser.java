@@ -8,18 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkspaceAnalyser {
-	
-	void analyse(String workspacePath) throws Exception {
+
+	List<MetaFile> getFilePathsFromWorkspace(String workspacePath) throws Exception {
 		List<MetaFile> paths = walk(workspacePath);
-		int linenumbers = 0;
-		for (MetaFile metaFile : paths){
-			System.out.println(metaFile.getPath() + " file " + paths.indexOf(metaFile) + "/" + paths.size());
-			System.out.println("Number of lines: " + metaFile.getLineNumber());
-			JavaTreeParserBuilder builder = new JavaTreeParserBuilder();
-			builder.generateTreeParser(metaFile.getPath());
-			linenumbers += metaFile.getLineNumber();
-			System.out.println(linenumbers);
-		}
+		return paths;
 	}
 	
 	private List<MetaFile> walk(String path) throws IOException {
