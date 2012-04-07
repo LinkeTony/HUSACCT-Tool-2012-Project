@@ -31,23 +31,23 @@ public class JavaTreeParserDelegater {
 	Tree classTopLevelScopeTree;
 	public List<FamixObject> delegateFamixObjectGenerators(JavaParser javaParser) throws RecognitionException {
 		
-		
-		
 		compilationUnit_return compilationUnit = javaParser.compilationUnit();
 		CommonTree compilationUnitTree = (CommonTree) compilationUnit.getTree();
-		//List<CommonTree> children = compilationUnitTree.getChildren();
 		packageTree = compilationUnitTree.getFirstChildWithType(packageType);
 		classTree = compilationUnitTree.getFirstChildWithType(classType);
-//		
+
 		if(packageTree != null){
 			delegatePackage(packageTree);
 		}
+
 		if(classTree != null){
 			delegateClass(classTree);
 		}
+		
 		if(classTopLevelScopeTree != null){
 			delegateTopLevelScopeTree(classTopLevelScopeTree);
 		}
+		
 		return famixObjects;
 	}
 	public void delegatePackage(Tree packageTree){

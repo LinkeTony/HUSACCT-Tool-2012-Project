@@ -8,28 +8,28 @@ public class JavaPackageGenerator extends JavaGenerator{
 	String name = "";
 	String belongsToPackage = "";
 	String packageName = "";
-	Boolean tokenSet = false;
+	Boolean nameSet = false;
 	FamixPackage famixPackage = new FamixPackage();
-	
+	final int DOT = 15;
+	final int INDENTIFIER = 164;
 
 	public FamixPackage generateFamix(CommonTree packageNode) {
-		System.out.println(packageNode.getChild(0));
 		if (packageNode != null) {
-			if(packageNode.getChild(0).getType() != 15){
+			if(packageNode.getChild(0).getType() != DOT){
 				name = packageNode.getChild(0).toString();
 			}else{
 				generateFamix((CommonTree) packageNode.getChild(0));
 			}
-			if(packageNode.getChild(0) != null && packageNode.getChild(0).getType() == 164 && tokenSet != true){
+			if(packageNode.getChild(0) != null && packageNode.getChild(0).getType() == INDENTIFIER && nameSet != true){
 				belongsToPackage = packageNode.getChild(0).toString();
 				name = packageNode.getChild(1).toString();
-				tokenSet = true;
-			}else if(packageNode.getChild(0) != null && packageNode.getChild(0).getType() == 15 && tokenSet != true){
+				nameSet = true;
+			}else if(packageNode.getChild(0) != null && packageNode.getChild(0).getType() == DOT && nameSet != true){
 				name = packageNode.getChild(1).toString();
-				tokenSet = true;
+				nameSet = true;
 				generateFamix((CommonTree) packageNode.getChild(0));				
-			}else if (packageNode.getChild(0) != null && (packageNode.getChild(0).getType() == 164 || packageNode.getChild(0).getType() == 15) ){
-				if(packageNode.getChild(0).getType() == 15){
+			}else if (packageNode.getChild(0) != null && (packageNode.getChild(0).getType() == INDENTIFIER || packageNode.getChild(0).getType() == DOT) ){
+				if(packageNode.getChild(0).getType() == DOT){
 					belongsToPackage = packageNode.getChild(1).toString() + "." + belongsToPackage; 
 					generateFamix((CommonTree) packageNode.getChild(0));	
 				}else{
@@ -48,6 +48,5 @@ public class JavaPackageGenerator extends JavaGenerator{
 			
 		}
 		return famixPackage;
-
 	}
 }
