@@ -13,7 +13,7 @@ public class JavaPackageGenerator extends JavaGenerator{
 	
 
 	public FamixPackage generateFamix(CommonTree packageNode) {
-		System.out.println(packageNode.getChild(0));
+		//System.out.println(packageNode.getChild(0));
 		if (packageNode != null) {
 			if(packageNode.getChild(0).getType() != 15){
 				name = packageNode.getChild(0).toString();
