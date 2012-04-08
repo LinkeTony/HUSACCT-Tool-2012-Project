@@ -1,5 +1,9 @@
 package husacct.analyse.abstraction.mappers.codemapper;
 
+import husacct.analyse.domain.famix.FamixObject;
+
+import java.util.List;
+
 public interface GenericMapper {
-	public void analyseApplication(String workspacePath);
+	public List<FamixObject> analyseApplication(String workspacePath);
 }

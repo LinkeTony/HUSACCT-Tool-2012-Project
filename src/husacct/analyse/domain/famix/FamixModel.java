@@ -13,6 +13,7 @@ import javax.naming.directory.InvalidAttributesException;
  */
 public class FamixModel extends FamixObject
 {
+
 	private HashMap<String, FamixBehaviouralEntity> behaviouralEntities = new HashMap<String, FamixBehaviouralEntity>();
 	private HashMap<String, FamixStructuralEntity> structuralEntities = new HashMap<String, FamixStructuralEntity>();
 	private HashMap<String, FamixPackage> packages = new HashMap<String, FamixPackage>();
