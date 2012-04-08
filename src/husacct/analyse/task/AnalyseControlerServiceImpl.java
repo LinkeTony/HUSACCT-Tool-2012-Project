@@ -1,9 +1,12 @@
 package husacct.analyse.task;
 
+import java.util.List;
+
 import husacct.analyse.abstraction.mappers.codemapper.CodeMapper;
 import husacct.analyse.abstraction.mappers.codemapper.CodeMapperService;
 import husacct.analyse.domain.analyseservice.AnalyseDomainServiceImpl;
 import husacct.analyse.domain.analyseservice.AnalyseDomainService;
+import husacct.analyse.domain.famix.FamixObject;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
@@ -18,9 +21,8 @@ public class AnalyseControlerServiceImpl implements AnalyseControlService{
 	}
 	
 	@Override
-	public void analyseApplication() {
-		//TODO Path from defineservice! (getApplicatioDetails())
-		mapperService.analyseApplication("benchmark_application");
+	public List<FamixObject> analyseApplication() {
+		return mapperService.analyseApplication("benchmark_application");
 	}
 	
 	@Override

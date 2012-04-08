@@ -1,32 +1,45 @@
 package husacct.analyse;
 
+import husacct.analyse.domain.famix.FamixModel;
+import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.task.AnalyseControlService;
 import husacct.analyse.task.AnalyseControlerServiceImpl;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
+import java.util.List;
+
+import javax.naming.directory.InvalidAttributesException;
+
 public class AnalyseServiceImpl implements IAnalyseService{
 
 	private AnalyseControlService service = new AnalyseControlerServiceImpl();
 	private AnalyseServiceStub stub;
-	
+	private FamixModel famixModel;
+
 	public AnalyseServiceImpl(){
 		stub = new AnalyseServiceStub();
+		famixModel = new FamixModel();
 	}
-	
+
 	@Override
 	public String[] getAvailableLanguages() {
 		return service.getAvailableLanguages();
 	}
-	
+
 	@Override
 	public void analyseApplication() {
-		service.analyseApplication();		
+		List<FamixObject> famixObjects = service.analyseApplication();
+		try {
+			for (FamixObject famixObject : famixObjects) {
+				famixModel.addObject(famixObject);
+			}
+			System.out.println(famixModel);
+		} catch (InvalidAttributesException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
-	
-	
+
 	@Override
 	public DependencyDTO[] getDependency(String from, String to) {
 		return stub.getDependency(from, to);
@@ -36,7 +49,7 @@ public class AnalyseServiceImpl implements IAnalyseService{
 	public DependencyDTO[] getDependency(String from) {
 		return stub.getDependency(from);
 	}
-	
+
 	@Override
 	public AnalysedModuleDTO[] getRootModules() {
 		return stub.getRootModules();

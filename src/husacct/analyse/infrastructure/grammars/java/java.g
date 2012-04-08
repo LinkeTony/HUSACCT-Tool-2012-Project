@@ -1,5 +1,5 @@
 /**
- * An ANTLRv3 capable Java 1.5 grammar for building ASTs.
+  * An ANTLRv3 capable Java 1.5 grammar for building ASTs.
  *
  * Note that there's also the tree grammar 'JavaTreeParser.g' that can be fed
  * with this grammer's output.
@@ -54,7 +54,7 @@
  *
  */
  
-grammar java;
+grammar Java;
 
 options {
     backtrack = true; 
@@ -236,7 +236,7 @@ tokens {
 }
 
 @header {
-  package ;
+package com.habelitz.jsobjectizer.unmarshaller.antlrbridge.generated;
 }
 
 @members {
@@ -304,9 +304,9 @@ tokens {
 }
 
 @lexer::header {
- package ;
+package com.habelitz.jsobjectizer.unmarshaller.antlrbridge.generated;
 }
-
+ 
 @lexer::members {
 /** 
  *  Determines if whitespaces and comments should be preserved or thrown away.
