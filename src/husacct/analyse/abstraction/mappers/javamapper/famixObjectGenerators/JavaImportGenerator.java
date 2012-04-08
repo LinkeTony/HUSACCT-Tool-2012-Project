@@ -1,12 +1,9 @@
 package husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators;
 
 import java.util.List;
-
+import org.antlr.runtime.tree.CommonTree;
 import husacct.analyse.domain.famix.FamixImport;
 import husacct.analyse.infrastructure.antlr.JavaParser;
-
-import org.antlr.runtime.tree.CommonTree;
-
 
 public class JavaImportGenerator {
 	
