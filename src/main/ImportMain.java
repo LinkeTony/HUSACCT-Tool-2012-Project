@@ -30,7 +30,7 @@ public class ImportMain {
 		CommonTree completeFileTree = generateTree(filePath);
 		JavaImportGenerator importGenerator = new JavaImportGenerator();
 		CommonTree importTree = (CommonTree)completeFileTree.getFirstChildWithType(JavaImportGenerator.nodeType);
-		FamixImport importObject = importGenerator.generateFamixImport(importTree);
+		FamixImport importObject = importGenerator.generateFamixImport(importTree, "MyUniqueClass");
 		System.out.println(importObject.toString());
 		System.out.println();
 		System.out.println(importObject.getTestDetails(true));
