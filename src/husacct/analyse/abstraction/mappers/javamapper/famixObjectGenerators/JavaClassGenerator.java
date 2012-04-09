@@ -13,7 +13,7 @@ public class JavaClassGenerator extends JavaGenerator {
 		famixClass.setName(commonTree.getChild(0).toString());
 		famixClass.setAbstract(false);
 		famixClass.setBelongsToPackage(this.packageName);
-		famixClass.setUniqueName(uniqueName+commonTree.getChild(0).toString());
+		famixClass.setUniqueName(uniqueName + commonTree.getChild(0).toString());
 		
 		return famixClass;
 	}

@@ -21,6 +21,7 @@ public class ImportMain {
 	public static void main(String[] args){
 		try {
 			testImport("benchmark_application/presentation/annotations/Copyright.java");
+			startUI();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

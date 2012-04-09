@@ -21,7 +21,6 @@ public class JavaTreeParserDelegater {
 	FamixPackage  famixPackageObject;
 	FamixClass famixClassObject;
 	List<FamixObject> famixObjects = new ArrayList<FamixObject>();
-	final int classTopLevelScopeType = 123;
 	Tree packageTree;
 	Tree classTree;
 	Tree importTree;
@@ -87,7 +86,7 @@ public class JavaTreeParserDelegater {
 		javaClassGenerator.setPackageNameAndUniqueName(famixPackageObject.getName(), famixPackageObject.getUniqueName());
 		famixClassObject = javaClassGenerator.generateFamix((CommonTree) classTree);
 		famixObjects.add(famixClassObject);
-		Tree classTopLevelScopeTreeChild = ((BaseTree) classTree).getFirstChildWithType(classTopLevelScopeType);
+		Tree classTopLevelScopeTreeChild = ((BaseTree) classTree).getFirstChildWithType(JavaParser.CLASS_TOP_LEVEL_SCOPE);
 		if(classTopLevelScopeTree != null){
 			classTopLevelScopeTree = classTopLevelScopeTreeChild;
 		}
