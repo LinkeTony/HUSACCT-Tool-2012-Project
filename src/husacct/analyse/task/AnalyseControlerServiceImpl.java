@@ -22,7 +22,7 @@ public class AnalyseControlerServiceImpl implements AnalyseControlService{
 	
 	@Override
 	public List<FamixObject> analyseApplication() {
-		return mapperService.analyseApplication("benchmark_application");
+		return mapperService.analyseApplication("C:\\users\\Thomas\\workspace");
 	}
 	
 	@Override

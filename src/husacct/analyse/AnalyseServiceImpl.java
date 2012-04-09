@@ -7,6 +7,8 @@ import husacct.analyse.task.AnalyseControlerServiceImpl;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.naming.directory.InvalidAttributesException;
@@ -33,8 +35,8 @@ public class AnalyseServiceImpl implements IAnalyseService{
 		try {
 			for (FamixObject famixObject : famixObjects) {
 				famixModel.addObject(famixObject);
+				
 			}
-			System.out.println(famixModel);
 		} catch (InvalidAttributesException e) {
 			e.printStackTrace();
 		}
