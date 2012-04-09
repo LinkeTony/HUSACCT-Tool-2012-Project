@@ -19,7 +19,7 @@ public class AnalyseServiceImpl implements IAnalyseService{
 
 	public AnalyseServiceImpl(){
 		stub = new AnalyseServiceStub();
-		famixModel = FamixModel.getInstance();
+		famixModel = new FamixModel();
 	}
 
 	@Override
@@ -34,6 +34,7 @@ public class AnalyseServiceImpl implements IAnalyseService{
 			for (FamixObject famixObject : famixObjects) {
 				famixModel.addObject(famixObject);
 			}
+			System.out.println(famixModel);
 		} catch (InvalidAttributesException e) {
 			e.printStackTrace();
 		}

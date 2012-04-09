@@ -15,10 +15,7 @@ public class FamixModel extends FamixObject
 {
 
 	private static FamixModel instance;
-	
-	private FamixModel(){
-	}
-	
+		
 	public static FamixModel getInstance(){
 		if(instance != null){
 			return new FamixModel();
