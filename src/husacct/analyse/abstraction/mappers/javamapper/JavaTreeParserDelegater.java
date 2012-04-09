@@ -36,6 +36,7 @@ public class JavaTreeParserDelegater {
 	Tree methodTree;
 
 	public List<FamixObject> delegateFamixObjectGenerators(JavaParser javaParser) throws RecognitionException {
+<<<<<<< HEAD
 		compilationUnit_return compilationUnit = javaParser.compilationUnit();
 		CommonTree compilationUnitTree = (CommonTree) compilationUnit.getTree();
 
@@ -45,18 +46,32 @@ public class JavaTreeParserDelegater {
 		if (hasMethodes(classTree)){
 			methodTree = classTree.getChild(2).getChild(1);
 		}
+=======
+		
+		compilationUnit_return compilationUnit = javaParser.compilationUnit();
+		CommonTree compilationUnitTree = (CommonTree) compilationUnit.getTree();
+		packageTree = compilationUnitTree.getFirstChildWithType(packageType);
+		classTree = compilationUnitTree.getFirstChildWithType(classType);
+
+>>>>>>> 4a345b4d91560fd732feb0bf24418a4dbd999c0f
 		if(packageTree != null){
 			delegatePackage(packageTree);
 		}
+
 		if(classTree != null){
 			delegateClass(classTree);
 		}
+		
 		if(classTopLevelScopeTree != null){
 			delegateTopLevelScopeTree(classTopLevelScopeTree);
 		}
+<<<<<<< HEAD
 		if (methodTree != null){
 			delegateMethodTree(methodTree);
 		}
+=======
+		
+>>>>>>> 4a345b4d91560fd732feb0bf24418a4dbd999c0f
 		return famixObjects;
 	}
 
