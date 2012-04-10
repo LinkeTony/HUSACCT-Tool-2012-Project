@@ -484,43 +484,43 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
             	
           
             	ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
-        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account"));
-        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends"));
-        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map"));
-        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account", "class"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends", "class"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map", "class"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History", "class"));
         		
         		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
-        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account"));
-        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends"));
-        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map"));		
+        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account", "class"));
+        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends", "class"));
+        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map", "class"));		
         		
         		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
-        		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", foursquareSub));
-        		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", latitudeSub));
+        		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", "package", foursquareSub));
+        		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", "package", latitudeSub));
         		
         		
         		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
-        		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", locationbasedSub));
+        		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", "package", locationbasedSub));
         		
         		
         		ArrayList<AnalysedModuleDTO> foursquare1Sub = new ArrayList<AnalysedModuleDTO>();
-        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "AccountDAO"));
-        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "FriendsDAO"));
-        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.IMap", "IMap"));
-        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "HistoryDAO"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "AccountDAO", "class"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "FriendsDAO", "class"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.IMap", "IMap", "class"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "HistoryDAO", "class"));
         		
         		ArrayList<AnalysedModuleDTO> locationbased1Sub = new ArrayList<AnalysedModuleDTO>();
-        		locationbased1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare", "foursquare", foursquare1Sub));
+        		locationbased1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare", "foursquare", "package", foursquare1Sub));
         		
         		ArrayList<AnalysedModuleDTO> socialmediaSub = new ArrayList<AnalysedModuleDTO>();
-        		socialmediaSub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased", "locationbased", locationbased1Sub));
+        		socialmediaSub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased", "locationbased", "package", locationbased1Sub));
         		
         		ArrayList<AnalysedModuleDTO> infrastructureSub = new ArrayList<AnalysedModuleDTO>();
-        		infrastructureSub.add(new AnalysedModuleDTO("infrastructure.socialmedia", "socialmedia", socialmediaSub));
+        		infrastructureSub.add(new AnalysedModuleDTO("infrastructure.socialmedia", "socialmedia", "package", socialmediaSub));
         		
         		ArrayList<AnalysedModuleDTO> analysedSub = new ArrayList<AnalysedModuleDTO>();
-        		analysedSub.add(new AnalysedModuleDTO("domain", "domain", domainSub));
-        		analysedSub.add(new AnalysedModuleDTO("infrastructure", "infrastructure", infrastructureSub));
+        		analysedSub.add(new AnalysedModuleDTO("domain", "domain", "package", domainSub));
+        		analysedSub.add(new AnalysedModuleDTO("infrastructure", "infrastructure", "package", infrastructureSub));
         		
         	       DefaultMutableTreeNode rootNode =  new DefaultMutableTreeNode("root");
        	        
@@ -651,23 +651,23 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
   
     	
     	ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account"));
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends"));
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map"));
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account", "class"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends", "class"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map", "class"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History", "class"));
 		
 		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
-		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account"));
-		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends"));
-		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map"));		
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account", "class"));
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends", "class"));
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map", "class"));		
 		
 		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
-		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", foursquareSub));
-		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", latitudeSub));
+		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", "package", foursquareSub));
+		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude",  "package", latitudeSub));
 		
 		
 		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
-		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", locationbasedSub));
+		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", "package", locationbasedSub));
 		 
     	for(AnalysedModuleDTO curDTO: locationbasedSub){
 //    		System.out.println(curDTO.name);
