@@ -41,7 +41,8 @@ public class JavaTreeParserDelegater {
 			delegateTopLevelScopeTree(classTopLevelScopeTree);
 		}
 		
-		if(hasType(compilationUnitTree, JavaParser.IMPORT)){
+		//TODO : skipping interface and annotations, need to added later
+		if(classTree != null && hasType(compilationUnitTree, JavaParser.IMPORT)){
 			List<CommonTree> importTrees = this.getAllImportTrees(compilationUnitTree);
 			for(CommonTree importTree : importTrees){
 				delegateImport(importTree, famixClassObject.getUniqueName());
