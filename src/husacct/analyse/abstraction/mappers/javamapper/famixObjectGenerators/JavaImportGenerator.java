@@ -5,16 +5,18 @@ import org.antlr.runtime.tree.CommonTree;
 import husacct.analyse.domain.famix.FamixImport;
 import husacct.analyse.infrastructure.antlr.JavaParser;
 
-public class JavaImportGenerator {
+public class JavaImportGenerator{
 	
 	private FamixImport famixImportObject;
+	private String belongsToClass;
 	public static int nodeType = JavaParser.IMPORT;
 		
 	public JavaImportGenerator(){
 		this.famixImportObject = new FamixImport();
 	}
 	
-	public FamixImport generateFamixImport(CommonTree importTree){
+	public FamixImport generateFamixImport(CommonTree importTree, String className){
+		this.belongsToClass = className;
 		fillImportObject(importTree);
 		return famixImportObject;
 	}
@@ -23,6 +25,7 @@ public class JavaImportGenerator {
 		String importDetails = createImportDetails(importTree, "--");
 		String declaration = convertToImportDeclaration(importDetails, "--");
 		
+		famixImportObject.setImportingClass(this.belongsToClass);
 		famixImportObject.setCompleteImportString(declaration);
 		boolean importsCompletePackage = isPackageImport(declaration);
 		famixImportObject.setIsCompletePackage(isPackageImport(declaration));

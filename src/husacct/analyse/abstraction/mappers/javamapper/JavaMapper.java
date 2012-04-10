@@ -3,7 +3,6 @@ package husacct.analyse.abstraction.mappers.javamapper;
 import husacct.analyse.abstraction.mappers.codemapper.GenericMapper;
 import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.infrastructure.antlr.JavaParser;
-import husacct.analyse.infrastructure.antlr.JavaTreeParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +25,7 @@ public class JavaMapper implements GenericMapper{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		for(FamixObject fm : famixObject){
-//			fm.toString();
-//		}
 		return famixObject;
-		
-		
 	}	
 }		
 

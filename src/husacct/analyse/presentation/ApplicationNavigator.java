@@ -1,15 +1,11 @@
- package husacct.analyse.presentation;
+package husacct.analyse.presentation;
 
 import husacct.analyse.AnalyseServiceImpl;
 import husacct.analyse.IAnalyseService;
 import husacct.common.dto.AnalysedModuleDTO;
-
 import java.net.URL;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTree;
-import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -87,8 +83,6 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
 				       
 
 				} else {
-//					 System.out.println("Dit is Package"+nodeInfo.toString());
-					 
 				        jTable1.setModel(new javax.swing.table.DefaultTableModel(
 				                new Object [][] {
 				                    {"PackageUniqueName", node.toString()},
@@ -345,27 +339,6 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
 
         jTabbedPane1.addTab("Start", jPanel1);
 
-        
-//        int aantalPackages = 3;
-//        int aantalClasses= 5;
-//        
-//        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("application");
-//        
-//        for (int iPackages = 0; iPackages < aantalPackages; iPackages++){
-//        	
-//        	 javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("packages");
-//        	 
-//        	
-//        	 
-//        	 for(int iClasses = 0; iClasses < aantalClasses; iClasses++){
-//        		 
-//        		 javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("AnalyseFacade");
-//        	     treeNode2.add(treeNode3);
-//        	     treeNode1.add(treeNode2);
-//        	 }
-//        	 
-//        }
-         
         int aantalPackages = 3;
         int aantalClasses= 5;
         
@@ -379,11 +352,6 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
     	AnalysedModuleDTO[] getRootModules = analyseService.getRootModules();
   
     	for(AnalysedModuleDTO curDTO: getRootModules){
-//    		System.out.println(curDTO.name);
-//    		System.out.println(curDTO.uniqueName);
-//    		System.out.println(curDTO.type);
-    		
-    		 
     		
     		packageNode = new DefaultMutableTreeNode(curDTO.name);
              top.add(packageNode);
@@ -395,19 +363,6 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
         	 }
     	}
     	
-        
-//        for (int iPackages = 0; iPackages < aantalPackages; iPackages++){
-//        	
-//        	  
-//        	 for(int iClasses = 0; iClasses < aantalClasses; iClasses++){
-//        		 
-//        	     //original Tutorial
-//        	        book = new DefaultMutableTreeNode(new BookInfo ("Class"+iClasses+".java","tutorial.html"));
-//        	        category.add(book);
-//        	 }
-//        	 
-//        } 
-//        
         tree = new JTree(top);
         tree.getSelectionModel().setSelectionMode
                 (TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -513,28 +468,6 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
                     .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-//        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-//            new Object [][] {
-//                {"Package", "analyse.domain.FAMIX.FObject"},
-//                {"Class", "Usages"},
-//                {"Type", "Constructor parameters"},
-//                {"Line", "8"},
-//                {"Code", "Usages usages = new Usages();"}
-//            },
-//            new String [] {
-//                "Property", "Value"
-//            }
-//        ) {
-//            Class[] types = new Class [] {
-//                java.lang.String.class, java.lang.String.class
-//            };
-//
-//            public Class getColumnClass(int columnIndex) {
-//                return types [columnIndex];
-//            }
-//        });
-//        jScrollPane7.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);

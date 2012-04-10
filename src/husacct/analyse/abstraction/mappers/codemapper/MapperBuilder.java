@@ -9,11 +9,10 @@ public class MapperBuilder{
 		GenericMapper mapper;
 		if(language.toLowerCase().equals(JavaMapper.programmingLanguage.toLowerCase())){
 			mapper = new JavaMapper();
-			return mapper;
 		}
 		else{
 			mapper = new CSharpMapper();
-			return mapper;
 		}
+		return mapper;
 	}
 }
