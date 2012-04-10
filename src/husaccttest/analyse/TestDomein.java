@@ -198,11 +198,12 @@ public class TestDomein extends TestCase{
 		int totalDependencies = 1;
 		
 		DependencyDTO[] dependencies = service.getDependency(fromPath);
+		assertEquals(totalDependencies, dependencies.length);
 		
 		String fromPathExpected = fromPath;
 		String toPathExpected = "infrastructure.socialmedia.locationbased.foursquare.AccountDAO";
-		String typeExpected = "object";
-		int linenumberExpected = 11;
+		String typeExpected = "InvocConstructor";
+		int linenumberExpected = 10;
 		
 		HashMap<String, Object> expectedDependency = createDependencyHashmap(fromPathExpected, toPathExpected, typeExpected, linenumberExpected);
 		boolean foundDependency = compaireDTOWithValues(expectedDependency, dependencies);
@@ -218,17 +219,17 @@ public class TestDomein extends TestCase{
 		
 		String accountFromPathExpected = fromPath + ".Account";
 		String accountToPathExpected = "infrastructure.socialmedia.locationbased.latitude.AccountDAO";
-		String accountTypeExpected = "object";
-		int accountLinenumberExpected = 10;
+		String accountTypeExpected = "InvocConstructor";
+		int accountLinenumberExpected = 11;
 		
 		String friendsFromPathExpected = fromPath + ".Friends";
 		String friendsToPathExpected = "infrastructure.socialmedia.locationbased.latitude.FriendsDAO";
-		String friendsTypeExpected = "extends";
+		String friendsTypeExpected = "Extends";
 		int friendsLinenumberExpected = 10;
 		
 		String mapFromPathExpected = fromPath + ".Map";
 		String mapToPathExpected = "infrastructure.socialmedia.locationbased.latitude.IMap";
-		String mapTypeExpected = "implements";
+		String mapTypeExpected = "Implements";
 		int mapLinenumberExpected = 10;
 		
 		
@@ -264,13 +265,14 @@ public class TestDomein extends TestCase{
 		
 		String domainNameExpected = "domain";
 		String domainUniqueNameExpected = "domain";
-		int domainsubmoduleCount = 1;
+		int domainSubmoduleCount = 1;
 		String domainTypeExpected = "package";
 		
-		//HashMap<String, Object> accountExpectedDependency = createModuleHashmap(
-			//	accountFromPathExpectied, accountToPathExpected, accountTypeExpected, accountLinenumberExpected);
+		HashMap<String, Object> accountExpectedDependency = createModuleHashmap(
+				domainNameExpected, domainUniqueNameExpected, domainSubmoduleCount, domainTypeExpected);
 		
-		
+		boolean domainFoundModule = compaireDTOWithValues(accountExpectedDependency, modules);
+		assertTrue(domainFoundModule);
 		
 		
 		
@@ -302,28 +304,40 @@ public class TestDomein extends TestCase{
 		return dependencyHashMap;
 	}
 	
+	private HashMap<String, Object> createModuleHashmap(String name, String uniqueName, int totalSubmodules, String type){
+		HashMap<String, Object> moduleHashMap = new HashMap<String, Object>();
+			
+		moduleHashMap.put("name", name);
+		moduleHashMap.put("uniqueName", uniqueName);
+		//moduleHashMap.put("submodules.length", totalSubmodules);
+		moduleHashMap.put("type", type);
+		
+		return moduleHashMap;
+	}
+	
 	
 	//Generieke functie om DTO's te vergelijken met een hashmap
 	//TODO : onafhankelijk van DTO maken (type DTO)
 	private boolean compaireDTOWithValues(Object o, Object[] allDependencies){
-		HashMap<String, Object> findingProperties = (HashMap<String, Object>) o;	
-				
+		HashMap<String, Object> findingProperties = (HashMap<String, Object>) o;
+		
 		dependencyloop : for(Object currentDependency : allDependencies){
-			for(String currentKey : findingProperties.keySet()){
+			keyloop : for(String currentKey : findingProperties.keySet()){
 				
 				try {
 					Class objectPropertyClass = currentDependency.getClass();
-					Field objectPropertyField = objectPropertyClass.getField(currentKey);
+					Field objectPropertyField = objectPropertyClass.getDeclaredField(currentKey);
 					Object objectPropertyFieldValue = (Object) objectPropertyField.get(currentDependency).toString();
 					Object checkingObject = (Object) findingProperties.get(currentKey);
-					Object checkingObjectValue = checkingObject.toString();					
+					Object checkingObjectValue = checkingObject.toString();
+
 					
 					if(!objectPropertyFieldValue.equals(checkingObjectValue)){
 						continue dependencyloop;
 					}
 					
 				} catch (Exception e) {
-					continue;
+					return false;
 				}
 
 			}
