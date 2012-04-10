@@ -41,7 +41,6 @@ public class FamixModel extends FamixObject
 			{
 				classes.put(((FamixEntity) e).getUniqueName(), (FamixClass) e);
 			}
-
 		}
 		else if (e instanceof FamixAssociation)
 		{
@@ -117,7 +116,8 @@ public class FamixModel extends FamixObject
 
 	public String toString()
 	{
-		return "\n -----------Packages-------------- \n" + packages
+		return "\n -----------Imports:-------------- \n" + associations
+				+ "\n ------------Packages------------- \n" + packages
 				+ "\n ------------Classes------------- \n" + classes
 				+ "\n --------------Methoden (behavioural entities) ----------- \n" + behaviouralEntities
 				+ "\n --------------Variabelen (structural entities) ----------- \n" + structuralEntities
