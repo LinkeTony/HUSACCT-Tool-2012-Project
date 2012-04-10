@@ -12,11 +12,13 @@ public class AnalysedModuleDTO extends AbstractDTO{
 	public AnalysedModuleDTO(String uniqueName, String name, String type){
 		this.uniqueName = uniqueName;
 		this.name = name;
+		this.type = type;
 	}
 	
 	public AnalysedModuleDTO(String uniqueName, String name, String type, List<AnalysedModuleDTO> subModules){
 		this.uniqueName = uniqueName;
 		this.name = name;
+		this.type = type;
 		this.subModules = subModules;
 	}
 }
