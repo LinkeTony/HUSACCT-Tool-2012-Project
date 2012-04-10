@@ -16,4 +16,5 @@ public abstract class User {
 	public void setProfilePicture(Picture profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+	public abstract void abstractFunciton();
 }

@@ -8,4 +8,10 @@ package domain.netlog;
 //Result: TRUE
 public class Profile extends User {
 
+	@Override
+	public void abstractFunciton() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
