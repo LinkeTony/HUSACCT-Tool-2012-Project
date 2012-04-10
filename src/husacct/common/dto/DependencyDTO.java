@@ -1,6 +1,6 @@
 package husacct.common.dto;
 
-public class DependencyDTO {
+public class DependencyDTO extends AbstractDTO{
 	
 	public String from;
 	public String to;

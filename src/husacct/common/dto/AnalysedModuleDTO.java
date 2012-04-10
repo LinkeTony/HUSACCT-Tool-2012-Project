@@ -2,7 +2,7 @@ package husacct.common.dto;
 
 import java.util.List;
 
-public class AnalysedModuleDTO {
+public class AnalysedModuleDTO extends AbstractDTO{
 	
 	public String uniqueName;
 	public String name;
