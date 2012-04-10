@@ -57,3 +57,4 @@ public class FamixImport extends FamixAssociation{
 		return details;
 	}
 }
+
