@@ -1,14 +1,45 @@
-package husacct.analyse.presentation;
+ package husacct.analyse.presentation;
 
 import husacct.analyse.AnalyseServiceImpl;
 import husacct.analyse.IAnalyseService;
+import husacct.analyse.domain.famix.FamixModel;
+import husacct.analyse.domain.famix.FamixObject;
+import husacct.analyse.domain.famix.FamixPackage;
 import husacct.common.dto.AnalysedModuleDTO;
+import husacct.common.dto.DependencyDTO;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.swing.AbstractListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
  
 
@@ -18,6 +49,7 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class ApplicationNavigator extends JFrame implements TreeSelectionListener {
 
+	  public JButton showFamix;
 	 private class BookInfo {
 	        public String bookName;
 	        public URL bookURL;
@@ -35,81 +67,192 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
 	            return bookName;
 	        }
 	    }
-	 private JTree tree;
+ 
     /**
      * Creates new form ApplicationNavigator
      */
     public ApplicationNavigator() {
         initComponents();
     }
-
+    HashMap<String, ArrayList<Object>> analysed;
     @Override
 	public void valueChanged(TreeSelectionEvent e) {
-    	 DefaultMutableTreeNode node = (DefaultMutableTreeNode)
-                 tree.getLastSelectedPathComponent();
-
+    	 
+    	DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+    	
+    	  
 				if (node == null) return;
-				
-				Object nodeInfo = node.getUserObject();
+				 
 				if (node.isLeaf()) {
+ 
+					System.out.println(node.toString());
+					
+					DefaultTableModel model = new DefaultTableModel();
+					JTable table1 = new JTable(model);
+
+					// Create a couple of columns
+					model.addColumn("Property");
+					model.addColumn("Value");
+
 				 
+					String nodeData = node.toString();
+					String[] splitObjects = node.toString().split("\\.");
 					 
-				 
-				       jTable2.setModel(new javax.swing.table.DefaultTableModel(
-				                new Object [][] {
-				                    {"Name", node.toString()},
-				                    {"UniqueName", "p1.p2."+node.toString() },
-				                    {"BelongsToPackage", "test.test.ofzo ?"},
-				                    {"isAbstract =", "true/false?"} 
-				                },
-				                new String [] {
-				                    "Property", "Value"
-				                }
-				            ) {
-				                /**
-								 * 
-								 */
-								private static final long serialVersionUID = 1L;
-								Class[] types = new Class [] {
-				                    java.lang.String.class, java.lang.String.class
-				                };
+					String tempName = "";
+					String tempUniqueName = "";
+					String tempBelongsToPackage = "";
+					
+					int aantalObjecten = splitObjects.length;
+					
+					if(splitObjects.length == 0){
+						
+						tempName = nodeData; 
+						tempUniqueName = nodeData;
+						tempBelongsToPackage = "null";
+					}
+					else
+					{
+						for(int iSplitCounter = 0 ; iSplitCounter < aantalObjecten; iSplitCounter++ ){
+							
+							tempUniqueName = nodeData;
+							
+							if (iSplitCounter == aantalObjecten-1 ){
+								
+								tempBelongsToPackage += splitObjects[iSplitCounter].toString() + "" ;
+								tempName = splitObjects[iSplitCounter].toString();
+							}
+							else
+							{
+								tempBelongsToPackage += splitObjects[iSplitCounter].toString() + "." ;
+							} 
+						} 	
+						
+					}
+					model.addRow(new Object[]{"ClassUniqueName", tempUniqueName}); 
+					model.addRow(new Object[]{"ClassName", tempName}); 
+					
+					
+					
+					jScrollPane4.setViewportView(table1);
+				}
+				else
+				{
+					 
+					DefaultTableModel model = new DefaultTableModel();
+					JTable table2 = new JTable(model);
 
-				                public Class getColumnClass(int columnIndex) {
-				                    return types [columnIndex];
-				                }
-				            });
-				       
-				       jScrollPane4.setViewportView(jTable2);
-				       
-
-				} else {
-				        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-				                new Object [][] {
-				                    {"PackageUniqueName", node.toString()},
-				                    {"PackageName", "Usages"},
-				                    {"BelongsToPackage", "Constructor parameters"} 
-				                },
-				                new String [] {
-				                    "Property", "Value"
-				                }
-				            ) {
-				                /**
-								 * 
-								 */
-								private static final long serialVersionUID = 1L;
-								Class[] types = new Class [] {
-				                    java.lang.String.class, java.lang.String.class
-				                };
-
-				                public Class getColumnClass(int columnIndex) {
-				                    return types [columnIndex];
-				                }
-				            });
-				        jScrollPane4.setViewportView(jTable1);
+					// Create a couple of columns
+					model.addColumn("Property");
+					model.addColumn("Value");
+ 
+					String nodeData = node.toString();
+					String[] splitObjects = node.toString().split("\\.");
+					 
+					String tempName = "";
+					String tempUniqueName = "";
+					String tempBelongsToPackage = "";
+					
+					int aantalObjecten = splitObjects.length;
+					
+					if(splitObjects.length == 0){
+						
+						tempName = nodeData; 
+						tempUniqueName = nodeData;
+						tempBelongsToPackage = "null";
+					}
+					else
+					{
+						for(int iSplitCounter = 0 ; iSplitCounter < aantalObjecten; iSplitCounter++ ){
+							
+							tempUniqueName = nodeData;
+							
+							if (iSplitCounter == aantalObjecten-1 ){
+ 
+								tempName = splitObjects[iSplitCounter].toString();
+							}
+							else
+							{
+					//			tempBelongsToPackage += splitObjects[iSplitCounter].toString() + "." ;
+								
+							} 
+						} 	
+						
+					}
+					 
+					model.addRow(new Object[]{"PackageUniqueName", tempUniqueName}); 
+					model.addRow(new Object[]{"PackageName", tempName}); 
+					//model.addRow(new Object[]{"BelongsToPackageName", tempBelongsToPackage}); 
+					
+					jScrollPane4.setViewportView(table2);
 				}
 				 
 	}
-    /**
+    
+	 
+  
+	public DependencyDTO[] getDependency(String from) {
+		
+		ArrayList<DependencyDTO> allDependencies = new ArrayList<DependencyDTO>();
+		
+		for(String s : analysed.keySet()){
+			if(s.indexOf(from) == -1){
+				continue;
+			}
+			
+			ArrayList<Object> currentElement = analysed.get(s);
+			for(DependencyDTO dependency: (ArrayList<DependencyDTO>) currentElement.get(1)){
+				allDependencies.add(dependency);
+			}
+		}
+		
+		
+		DependencyDTO[] matchDependency = new DependencyDTO[allDependencies.size()];
+		int iterator = 0;
+		for(DependencyDTO d : matchDependency){
+			matchDependency[iterator] = d;
+		}
+		
+		return matchDependency;
+	}
+	 
+	public DependencyDTO[] getDependency(String from, String to) {
+		
+		ArrayList<DependencyDTO> allDependencies = new ArrayList<DependencyDTO>();
+			
+		for(String s : analysed.keySet()){
+			if(s.indexOf(from) == -1){
+				continue;
+			}
+			
+			ArrayList<Object> currentElement = analysed.get(s);
+			for(DependencyDTO dependency: (ArrayList<DependencyDTO>) currentElement.get(1)){
+				if(dependency.to.indexOf(to) != -1){
+					allDependencies.add(dependency);
+				}
+			}
+		}
+		
+		
+		if(allDependencies.size() != 0){
+			DependencyDTO[] dependencyDTO = new DependencyDTO[allDependencies.size()];
+			
+			int iterator = 0;
+			for(DependencyDTO d : allDependencies){
+				dependencyDTO[iterator] = d;
+				iterator++;
+			}
+			
+			return dependencyDTO;
+			
+			
+		}
+		
+		return new DependencyDTO[0];
+	}
+
+	public JTree tree;
+	
+	/**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
@@ -117,7 +260,9 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-    	this.setVisible(true);
+    
+    	
+    	
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -162,23 +307,56 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
         jLabel3 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
+        showFamix = new JButton("show Famix");
+        showFamix.setEnabled(false);
+        
+        tfSelectedClass = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Analyse");
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jTextField1.setText("C:\\workspace\\HUSSACT\\analyse");
+        jTextField1.setText("");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        
+        jTextField2.setText("");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        
+   
+        tfSelectedClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+             
+                tfSelectedClass.setText("actionPerformed");
+                
+                
+            
             }
         });
 
         jButton1.setText("Browse");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+            	JFileChooser chooser = new JFileChooser();
+        	    chooser.setCurrentDirectory(new java.io.File("."));
+        	    chooser.setDialogTitle("choosertitle");
+        	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        	    chooser.setAcceptAllFileFilterUsed(false);
+
+        	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        	       jTextField1.setText(chooser.getSelectedFile().getAbsolutePath()); 
+        	      //jTextField2.setText(chooser.getSelectedFile().getAbsolutePath()); 
+        	    } else {
+        	    	jTextField1.setText("No Selection"); 
+        	    }
             }
         });
 
@@ -272,6 +450,7 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jTextField1)
+                                //.addComponent(jTextField2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -289,6 +468,7 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    // .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
@@ -301,8 +481,103 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
  
-            	jTabbedPane1.setSelectedIndex(1);
+            	
+          
+            	ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map"));
+        		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History"));
+        		
+        		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
+        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account"));
+        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends"));
+        		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map"));		
+        		
+        		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
+        		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", foursquareSub));
+        		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", latitudeSub));
+        		
+        		
+        		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
+        		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", locationbasedSub));
+        		
+        		
+        		ArrayList<AnalysedModuleDTO> foursquare1Sub = new ArrayList<AnalysedModuleDTO>();
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "AccountDAO"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "FriendsDAO"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.IMap", "IMap"));
+        		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "HistoryDAO"));
+        		
+        		ArrayList<AnalysedModuleDTO> locationbased1Sub = new ArrayList<AnalysedModuleDTO>();
+        		locationbased1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare", "foursquare", foursquare1Sub));
+        		
+        		ArrayList<AnalysedModuleDTO> socialmediaSub = new ArrayList<AnalysedModuleDTO>();
+        		socialmediaSub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased", "locationbased", locationbased1Sub));
+        		
+        		ArrayList<AnalysedModuleDTO> infrastructureSub = new ArrayList<AnalysedModuleDTO>();
+        		infrastructureSub.add(new AnalysedModuleDTO("infrastructure.socialmedia", "socialmedia", socialmediaSub));
+        		
+        		ArrayList<AnalysedModuleDTO> analysedSub = new ArrayList<AnalysedModuleDTO>();
+        		analysedSub.add(new AnalysedModuleDTO("domain", "domain", domainSub));
+        		analysedSub.add(new AnalysedModuleDTO("infrastructure", "infrastructure", infrastructureSub));
+        		
+        	       DefaultMutableTreeNode rootNode =  new DefaultMutableTreeNode("root");
+       	        
+        	       
+       
+       	      
+   
+        		
+        		for(AnalysedModuleDTO rootPackages: analysedSub){
+        			
+//        		 System.out.println("rootPackage =" + rootPackages.uniqueName);
+        		 DefaultMutableTreeNode rootpackageNode = new DefaultMutableTreeNode(rootPackages.uniqueName);
+         	        rootNode.add(rootpackageNode);
+                 
+         	       
+        			for(AnalysedModuleDTO packageL2: rootPackages.subModules){
+//        				System.out.println("packageL2 =" + packageL2.uniqueName);
+        				DefaultMutableTreeNode rootpackageNodeL2 = new DefaultMutableTreeNode(packageL2.uniqueName);
+        				rootpackageNode.add(rootpackageNodeL2);
+        				for(AnalysedModuleDTO packageL3: packageL2.subModules){
+//            				System.out.println("packageL3 =" + packageL3.uniqueName);
+            				DefaultMutableTreeNode rootpackageNodeL3 = new DefaultMutableTreeNode(packageL3.uniqueName);
+            				rootpackageNodeL2.add(rootpackageNodeL3);
+            				for(AnalysedModuleDTO classInPackage: packageL3.subModules){
+//                				System.out.println("classInPackage =" + classInPackage.uniqueName);
+                				 DefaultMutableTreeNode rootclassNameNode = new DefaultMutableTreeNode(classInPackage.uniqueName );
+                				 rootpackageNodeL3.add(rootclassNameNode); 
+                			} 
+            			} 
+        			} 	
+        		}
+        		
+     
+       		 
+            
+            	
+	        tree = new JTree(rootNode);
+	        tree.getSelectionModel().setSelectionMode
+	        (TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+            ImageIcon tutorialIcon = createImageIcon("class-icon.jpg");
+           if (tutorialIcon != null) {
+               tree.setCellRenderer(new MyRenderer(tutorialIcon));
+           } else {
+               System.err.println("Tutorial icon missing; using default.");
+           }
+
+//        
+           
+           jScrollPane3.setViewportView(tree);
+           setListener();
+           jTabbedPane1.setSelectedIndex(1);
+           showFamix.setEnabled(true);
             }
+
+			
+            
         });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -339,10 +614,33 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
 
         jTabbedPane1.addTab("Start", jPanel1);
 
+        
+//        int aantalPackages = 3;
+//        int aantalClasses= 5;
+//        
+//        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("application");
+//        
+//        for (int iPackages = 0; iPackages < aantalPackages; iPackages++){
+//        	
+//        	 javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("packages");
+//        	 
+//        	
+//        	 
+//        	 for(int iClasses = 0; iClasses < aantalClasses; iClasses++){
+//        		 
+//        		 javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("AnalyseFacade");
+//        	     treeNode2.add(treeNode3);
+//        	     treeNode1.add(treeNode2);
+//        	 }
+//        	 
+//        }
+         
         int aantalPackages = 3;
         int aantalClasses= 5;
         
-        DefaultMutableTreeNode top =  new DefaultMutableTreeNode("Application");
+        DefaultMutableTreeNode top =  new DefaultMutableTreeNode("root");
+        
+   
         DefaultMutableTreeNode packageNode = null;
         DefaultMutableTreeNode classNode = null;
  
@@ -351,25 +649,117 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
     	
     	AnalysedModuleDTO[] getRootModules = analyseService.getRootModules();
   
-    	for(AnalysedModuleDTO curDTO: getRootModules){
+    	
+    	ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History"));
+		
+		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account"));
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends"));
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map"));		
+		
+		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
+		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", foursquareSub));
+		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", latitudeSub));
+		
+		
+		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
+		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", locationbasedSub));
+		 
+    	for(AnalysedModuleDTO curDTO: locationbasedSub){
+//    		System.out.println(curDTO.name);
+//    		System.out.println(curDTO.uniqueName);
+//    		System.out.println(curDTO.type); 
     		
-    		packageNode = new DefaultMutableTreeNode(curDTO.name);
+    		packageNode = new DefaultMutableTreeNode(curDTO.uniqueName);
              top.add(packageNode);
-             for(int iClasses = 0; iClasses < aantalClasses; iClasses++){
-        		 
-        	     //original Tutorial
-            	 	classNode = new DefaultMutableTreeNode(new AnalysedModuleDTO ("Class"+iClasses+".java","tutorial.html"));
-        	        packageNode.add(classNode);
-        	 }
+ 
+         	if(curDTO.subModules != null){
+    			
+    			for(AnalysedModuleDTO curDTOClass: curDTO.subModules){
+    				  
+//    				 (name "DocentAbstract")
+//    				 (uniqueName "domain::DocentAbstract")
+//    				 (isAbstract "true")
+//    				 (belongsToPackage "domain") 
+    					
+    				
+//    				(Invocation
+//    						 (invokedBy "domain::Student.Student()")
+//    						 (invokes "domain::Persoon.Persoon()")
+//    						 (base "null")
+//    						 (lineNumber "6")
+//    						 (sourceFilePath "C:\Users\Asim\workspaceMaster\AnalyseBenchmarkApplication\src\domain\Student.java")
+//    						)
+    				
+    				
+//    				Unique Name: (Invocation
+//    						 (invokedBy "domain::Student.Student()")
+//    						 (invokes "domain::Persoon.Persoon()")
+//    						 (base "null")
+//    						 (lineNumber "6")
+//    						 (sourceFilePath "C:\Users\Asim\workspaceMaster\AnalyseBenchmarkApplication\src\domain\Student.java")
+//    						)
+
+    				
+    				DefaultMutableTreeNode classNameNode = new DefaultMutableTreeNode(curDTOClass.uniqueName );
+    				
+    			
+//    			 	DefaultMutableTreeNode classUniqueNameNode = new DefaultMutableTreeNode(curDTOClass.uniqueName );
+//    				DefaultMutableTreeNode classIsAbstractNode = new DefaultMutableTreeNode("isAbstract : true/false" );
+//    				DefaultMutableTreeNode classbelongsToNode = new DefaultMutableTreeNode(curDTOClass.uniqueName.substring(0,10) );
+//    				
+//    				classNameNode.add(classUniqueNameNode);
+//    				classNameNode.add(classIsAbstractNode);
+//    				classNameNode.add(classbelongsToNode);
+    				packageNode.add(classNameNode);
+ 
+    			} 
+ 
+    			
+    		}
     	}
     	
-        tree = new JTree(top);
-        tree.getSelectionModel().setSelectionMode
-                (TreeSelectionModel.SINGLE_TREE_SELECTION);
-
-        //Listen for when the selection changes.
-        tree.addTreeSelectionListener(this);
-        jScrollPane3.setViewportView(tree);
+        
+//        for (int iPackages = 0; iPackages < aantalPackages; iPackages++){
+//        	
+//        	  
+//        	 for(int iClasses = 0; iClasses < aantalClasses; iClasses++){
+//        		 
+//        	     //original Tutorial
+//        	        book = new DefaultMutableTreeNode(new BookInfo ("Class"+iClasses+".java","tutorial.html"));
+//        	        category.add(book);
+//        	 }
+//        	 
+//        } 
+//        
+//        tree = new JTree(top);
+//        tree.getSelectionModel().setSelectionMode
+//                (TreeSelectionModel.SINGLE_TREE_SELECTION);
+//
+//        
+//        ImageIcon packageIcon = createImageIcon("package-icon.jpg");
+//        if (packageIcon != null) {
+//            tree.setCellRenderer(new MyRendererV2(packageIcon));
+//        } else {
+//            System.err.println("packageIcon icon missing; using default.");
+//        }
+//        
+//        ImageIcon tutorialIcon = createImageIcon("class-icon.jpg");
+//        if (tutorialIcon != null) {
+//            tree.setCellRenderer(new MyRenderer(tutorialIcon));
+//        } else {
+//            System.err.println("Tutorial icon missing; using default.");
+//        }
+//
+//     
+//        
+//        //Listen for when the selection changes.
+//        tree.addTreeSelectionListener(this);
+     
 
   
         
@@ -427,12 +817,12 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
 
         jLabel4.setText("Location");
 
-        jTextField2.setText("analyse.domain.Famix");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+//        jTextField2.setText("analyse.domain.Famix");
+//        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextField2ActionPerformed(evt);
+//            }
+//        });
 
         jButton3.setText("Execute");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -453,7 +843,7 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfSelectedClass, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -464,10 +854,32 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfSelectedClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+//        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+//            new Object [][] {
+//                {"Package", "analyse.domain.FAMIX.FObject"},
+//                {"Class", "Usages"},
+//                {"Type", "Constructor parameters"},
+//                {"Line", "8"},
+//                {"Code", "Usages usages = new Usages();"}
+//            },
+//            new String [] {
+//                "Property", "Value"
+//            }
+//        ) {
+//            Class[] types = new Class [] {
+//                java.lang.String.class, java.lang.String.class
+//            };
+//
+//            public Class getColumnClass(int columnIndex) {
+//                return types [columnIndex];
+//            }
+//        });
+//        jScrollPane7.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -558,44 +970,151 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+//        jPanel3.setLayout(jPanel3Layout);
+//        jPanel3Layout.setHorizontalGroup(
+//            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//            .addGroup(jPanel3Layout.createSequentialGroup()
+//                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+//                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+//        );
+//        jPanel3Layout.setVerticalGroup(
+//            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGroup(jPanel3Layout.createSequentialGroup()
+//                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+//                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+//                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+//        );
+        
+        
+         
+        showFamix.addActionListener(new java.awt.event.ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				analyseController analyseController = new analyseController();
+				
+//				System.out.println(analyseController.analyseApplication().toString());
+				FamixFrame ff = new FamixFrame();
+				 
+				ff.setContentArea(analyseController.analyseApplication());
+				
+			}
+        
+        });
+        
+        jPanel3.add(showFamix);
 
         jTabbedPane1.addTab("Dependency Overview", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jTabbedPane1)
         );
 
-        pack();
+       pack();
+        
+        
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    protected static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = ApplicationNavigator.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+    private class MyRenderer extends DefaultTreeCellRenderer {
+        Icon tutorialIcon; 
+
+        public MyRenderer(Icon icon) {
+            tutorialIcon = icon; 
+        } 
+        public Component getTreeCellRendererComponent(
+                            JTree tree,
+                            Object value,
+                            boolean sel,
+                            boolean expanded,
+                            boolean leaf,
+                            int row,
+                            boolean hasFocus) {
+
+            super.getTreeCellRendererComponent(
+                            tree, value, sel,
+                            expanded, leaf, row,
+                            hasFocus);
+            
+          
+            
+            
+            if (leaf) {
+                setIcon(tutorialIcon); 
+                
+                
+            } 
+            else {
+                setToolTipText(null); //no tool tip 
+            }
+
+          
+            return this;
+        }
+
+     
+    }
+    
+    private class MyRendererV2 extends DefaultTreeCellRenderer {
+  
+        Icon packageIcon;
+
+        public MyRendererV2(Icon icon) {
+ 
+            packageIcon = icon;
+        } 
+        
+
+        public Component getTreeCellRendererComponent(
+                            JTree tree,
+                            Object value,
+                            boolean sel,
+                            boolean expanded,
+                            boolean leaf,
+                            int row,
+                            boolean hasFocus) {
+
+            super.getTreeCellRendererComponent(
+                            tree, value, sel,
+                            expanded, leaf, row,
+                            hasFocus); 
+            
+            if (leaf == false) {
+            	setIcon(packageIcon);
+             
+                
+            } 
+            else { 
+            } 
+            return this;
+        }
+
+     
+    }
+
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -624,6 +1143,48 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /*
+         * Set the Nimbus look and feel
+         */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+    
+        try {  
+        	javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");      
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ApplicationNavigator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ApplicationNavigator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ApplicationNavigator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ApplicationNavigator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /*
+         * Create and display the form
+         */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new ApplicationNavigator().setVisible(true);
+            }
+        });
+    }
+    
+    private void setListener() {
+        tree.addTreeSelectionListener(this);
+	}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -669,6 +1230,7 @@ public class ApplicationNavigator extends JFrame implements TreeSelectionListene
     private javax.swing.JTable jTableClassInfo;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField tfSelectedClass;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 	
