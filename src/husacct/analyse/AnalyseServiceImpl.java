@@ -35,11 +35,12 @@ public class AnalyseServiceImpl implements IAnalyseService{
 		try {
 			for (FamixObject famixObject : famixObjects) {
 				famixModel.addObject(famixObject);
-				System.out.println(famixModel);
 			}
 		} catch (InvalidAttributesException e) {
 			e.printStackTrace();
 		}
+		System.out.println(famixModel);
+		
 	}
 
 	@Override

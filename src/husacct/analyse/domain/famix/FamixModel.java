@@ -116,9 +116,10 @@ public class FamixModel extends FamixObject
 
 	public String toString()
 	{
-		return "\n -----------Imports:-------------- \n" + associations
-				+ "\n ------------Packages------------- \n" + packages
+		return 
+				"\n ------------Packages------------- \n" + packages
 				+ "\n ------------Classes------------- \n" + classes
+				+ "\n -----------Imports:-------------- \n" + associations
 				+ "\n --------------Methoden (behavioural entities) ----------- \n" + behaviouralEntities
 				+ "\n --------------Variabelen (structural entities) ----------- \n" + structuralEntities
 				+ "\n -----------Invocations-------------- \n" + associations + "num invocs " + associations.size();
