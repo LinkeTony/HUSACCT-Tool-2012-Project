@@ -256,6 +256,27 @@ public class TestDomein extends TestCase{
 		assertTrue(itemExistInArray("C#", availableLanguages));
 	}
 	
+	public void testGetRootModules(){
+		int totalModulesExpected = 2;
+		
+		AnalysedModuleDTO[] modules = service.getRootModules();
+		assertEquals(totalModulesExpected, modules.length);
+		
+		String domainNameExpected = "domain";
+		String domainUniqueNameExpected = "domain";
+		int domainsubmoduleCount = 1;
+		String domainTypeExpected = "package";
+		
+		//HashMap<String, Object> accountExpectedDependency = createModuleHashmap(
+			//	accountFromPathExpectied, accountToPathExpected, accountTypeExpected, accountLinenumberExpected);
+		
+		
+		
+		
+		
+		
+	}
+	
 	
 	
 	
@@ -284,10 +305,10 @@ public class TestDomein extends TestCase{
 	
 	//Generieke functie om DTO's te vergelijken met een hashmap
 	//TODO : onafhankelijk van DTO maken (type DTO)
-	private boolean compaireDTOWithValues(Object o, DependencyDTO[] allDependencies){
+	private boolean compaireDTOWithValues(Object o, Object[] allDependencies){
 		HashMap<String, Object> findingProperties = (HashMap<String, Object>) o;	
 				
-		dependencyloop : for(DependencyDTO currentDependency : allDependencies){
+		dependencyloop : for(Object currentDependency : allDependencies){
 			for(String currentKey : findingProperties.keySet()){
 				
 				try {
