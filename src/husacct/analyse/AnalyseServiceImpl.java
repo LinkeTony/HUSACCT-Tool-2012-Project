@@ -40,7 +40,6 @@ public class AnalyseServiceImpl implements IAnalyseService{
 			e.printStackTrace();
 		}
 		System.out.println(famixModel);
-		
 	}
 
 	@Override

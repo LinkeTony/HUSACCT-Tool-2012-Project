@@ -115,7 +115,7 @@ public class JavaTreeParserDelegater {
 
 	public void delegatePackage(Tree packageTree){
 		JavaPackageGenerator javaPackageGenerator = new JavaPackageGenerator();
-		famixPackageObject = javaPackageGenerator.generateFamix((CommonTree) packageTree.getChild(0));
+		famixPackageObject = javaPackageGenerator.generateFamix((CommonTree) packageTree);
 		famixObjects.add(famixPackageObject);
 	}
 	
