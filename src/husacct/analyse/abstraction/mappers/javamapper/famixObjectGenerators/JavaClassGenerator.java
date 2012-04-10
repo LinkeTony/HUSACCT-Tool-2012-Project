@@ -10,11 +10,10 @@ public class JavaClassGenerator extends JavaGenerator {
 	String uniqueName = "";
 	
 	public FamixClass generateFamix(CommonTree commonTree) {
-		famixClass.setName(commonTree.getChild(0).toString());
+		famixClass.setName(commonTree.getChild(1).toString());
 		famixClass.setAbstract(false);
 		famixClass.setBelongsToPackage(this.packageName);
-		famixClass.setUniqueName(uniqueName + commonTree.getChild(0).toString());
-		
+		famixClass.setUniqueName(uniqueName + "." + commonTree.getChild(1).toString());
 		return famixClass;
 	}
 	public void setPackageNameAndUniqueName(String packageName, String uniqueName){
