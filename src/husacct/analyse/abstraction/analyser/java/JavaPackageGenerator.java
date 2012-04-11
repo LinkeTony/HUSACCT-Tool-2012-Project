@@ -1,9 +1,9 @@
-package husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators;
+package husacct.analyse.abstraction.analyser.java;
 
 import husacct.analyse.domain.famix.FamixPackage;
 
 import org.antlr.runtime.tree.CommonTree;
-public class JavaPackageGenerator extends JavaGenerator{
+class JavaPackageGenerator extends JavaGenerator{
 	
 	String name = "";
 	String belongsToPackage = "";

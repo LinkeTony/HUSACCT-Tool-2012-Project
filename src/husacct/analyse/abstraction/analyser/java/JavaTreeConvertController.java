@@ -1,10 +1,5 @@
-package husacct.analyse.abstraction.mappers.javamapper;
+package husacct.analyse.abstraction.analyser.java;
 
-import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaAttributeGenerator;
-import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaClassGenerator;
-import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaImportGenerator;
-import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaMethodGenerator;
-import husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators.JavaPackageGenerator;
 import husacct.analyse.domain.famix.FamixClass;
 import husacct.analyse.domain.famix.FamixMethod;
 import husacct.analyse.domain.famix.FamixObject;
@@ -18,7 +13,7 @@ import org.antlr.runtime.tree.BaseTree;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.Tree;
 
-public class JavaTreeParserDelegater {
+class JavaTreeConvertController {
 	
 	FamixPackage  famixPackageObject;
 	FamixClass famixClassObject;
@@ -121,10 +116,11 @@ public class JavaTreeParserDelegater {
 	
 	public void delegateClass(Tree classTree){
 		JavaClassGenerator javaClassGenerator = new JavaClassGenerator();
-
 		javaClassGenerator.setPackageNameAndUniqueName(famixPackageObject.getName(), famixPackageObject.getUniqueName());
-		famixClassObject = javaClassGenerator.generateFamix((CommonTree) classTree);
+		
+		this.famixClassObject = javaClassGenerator.generateFamix((CommonTree)classTree);
 		famixObjects.add(famixClassObject);
+					
 		Tree classTopLevelScopeTreeChild = ((BaseTree) classTree).getFirstChildWithType(JavaParser.CLASS_TOP_LEVEL_SCOPE);
 		if(classTopLevelScopeTree != null){
 			classTopLevelScopeTree = classTopLevelScopeTreeChild;

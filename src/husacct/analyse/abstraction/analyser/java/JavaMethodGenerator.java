@@ -1,4 +1,4 @@
-package husacct.analyse.abstraction.mappers.javamapper.famixObjectGenerators;
+package husacct.analyse.abstraction.analyser.java;
 
 import husacct.analyse.domain.famix.FamixClass;
 import husacct.analyse.domain.famix.FamixMethod;
@@ -7,7 +7,7 @@ import husacct.analyse.domain.famix.FamixObject;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.Tree;
 
-public class JavaMethodGenerator extends JavaGenerator {
+class JavaMethodGenerator extends JavaGenerator {
 	private FamixMethod famixMethodObject;
 	private FamixClass famixClassObject;
 	

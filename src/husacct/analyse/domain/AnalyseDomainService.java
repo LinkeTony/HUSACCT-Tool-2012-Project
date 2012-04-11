@@ -1,9 +1,14 @@
-package husacct.analyse.domain.analyseservice;
+package husacct.analyse.domain;
 
+import java.util.List;
+
+import husacct.analyse.domain.famix.FamixObject;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
 public interface AnalyseDomainService {
+	
+	public List<FamixObject> analyseApplication();
 	
 	public DependencyDTO[] getDependency(String from, String to);
 	public DependencyDTO[] getDependency(String from);

@@ -30,6 +30,8 @@ public class analyseController {
 	}
  
 	public String  analyseApplication() {
+		//Fill with Stub.. Should be filled with actual data
+		
 		List<FamixObject> famixObjects = service.analyseApplication();
 		try {
 			for (FamixObject famixObject : famixObjects) {
