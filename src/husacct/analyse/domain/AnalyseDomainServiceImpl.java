@@ -1,35 +1,23 @@
 package husacct.analyse.domain;
 
-import java.util.List;
-
-import husacct.analyse.domain.analyser.ApplicationAnalyser;
-import husacct.analyse.domain.famix.FamixObject;
+import husacct.analyse.domain.famix.FamixModel;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
-public class AnalyseDomainServiceImpl implements AnalyseDomainService{
+public class AnalyseDomainServiceImpl implements AnalyseDomainService, ModelObserver{
 
-	ApplicationAnalyser mapperService; 
+	private FamixModelServiceImpl modelManager;
+	private FamixModel model;
 
 	public AnalyseDomainServiceImpl(){
-		this.mapperService = new ApplicationAnalyser();
-	}
+		this.modelManager = new FamixModelServiceImpl();
+		this.model = modelManager.getModel();
+		modelManager.registerObserver(this);
+	}	
 	
 	@Override
-	public String[] getAvailableLanguages() {
-		return mapperService.getAvailableLanguages();
-	}
-	
-	public List<FamixObject> analyseApplication(){
-		return mapperService.analyseApplication("benchmark_application");
-	}
-	
-	
-	
-	
-	@Override
-	public DependencyDTO[] getDependency(String from, String to) {		
-		//TODO 
+	public DependencyDTO[] getDependency(String from, String to) {
+		//TODO 	
 		return null;
 	}
 
@@ -63,4 +51,8 @@ public class AnalyseDomainServiceImpl implements AnalyseDomainService{
 		return null;
 	}
 
+	@Override
+	public void updateModel(FamixModel model) {
+		this.model = model;
+	}
 }

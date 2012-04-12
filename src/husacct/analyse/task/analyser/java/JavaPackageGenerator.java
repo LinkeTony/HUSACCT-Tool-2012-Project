@@ -1,10 +1,13 @@
-package husacct.analyse.abstraction.analyser.java;
+package husacct.analyse.task.analyser.java;
 
+import husacct.analyse.domain.FamixModelServiceImpl;
+import husacct.analyse.domain.ModelService;
+import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.domain.famix.FamixPackage;
 
 import org.antlr.runtime.tree.CommonTree;
 class JavaPackageGenerator extends JavaGenerator{
-	
+
 	String name = "";
 	String belongsToPackage = "";
 	String packageName = "";

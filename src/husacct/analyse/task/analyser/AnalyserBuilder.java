@@ -1,8 +1,7 @@
-package husacct.analyse.domain.analyser;
+package husacct.analyse.task.analyser;
 
-import husacct.analyse.abstraction.analyser.AbstractAnalyser;
-import husacct.analyse.abstraction.analyser.csharp.CSharpAnalyser;
-import husacct.analyse.abstraction.analyser.java.JavaAnalyser;
+import husacct.analyse.task.analyser.csharp.CSharpAnalyser;
+import husacct.analyse.task.analyser.java.JavaAnalyser;
 
 class AnalyserBuilder{
 	

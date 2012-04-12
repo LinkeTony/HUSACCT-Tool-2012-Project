@@ -1,7 +1,8 @@
-package husacct.analyse.abstraction.analyser.csharp;
+package husacct.analyse.task.analyser.csharp;
 
-import husacct.analyse.abstraction.analyser.AbstractAnalyser;
 import husacct.analyse.domain.famix.FamixObject;
+import husacct.analyse.task.analyser.AbstractAnalyser;
+
 import java.util.ArrayList;
 import java.util.List;
 

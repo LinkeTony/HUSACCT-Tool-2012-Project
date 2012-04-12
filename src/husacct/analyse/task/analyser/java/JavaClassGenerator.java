@@ -1,7 +1,10 @@
-package husacct.analyse.abstraction.analyser.java;
+package husacct.analyse.task.analyser.java;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import husacct.analyse.domain.FamixModelServiceImpl;
+import husacct.analyse.domain.ModelService;
 import husacct.analyse.domain.famix.FamixClass;
 import husacct.analyse.infrastructure.antlr.JavaParser;
 import org.antlr.runtime.tree.CommonTree;

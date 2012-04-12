@@ -31,15 +31,16 @@ public class AnalyseServiceImpl implements IAnalyseService{
 
 	@Override
 	public void analyseApplication() {
-		List<FamixObject> famixObjects = service.analyseApplication();
-		try {
-			for (FamixObject famixObject : famixObjects) {
-				famixModel.addObject(famixObject);
-			}
-		} catch (InvalidAttributesException e) {
-			e.printStackTrace();
-		}
-		System.out.println(famixModel);
+		service.analyseApplication();
+//		List<FamixObject> famixObjects = service.analyseApplication();
+//		try {
+//			for (FamixObject famixObject : famixObjects) {
+//				famixModel.addObject(famixObject);
+//			}
+//		} catch (InvalidAttributesException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(famixModel);
 	}
 
 	@Override

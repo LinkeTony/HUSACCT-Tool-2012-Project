@@ -1,4 +1,4 @@
-package husacct.analyse.domain.analyser;
+package husacct.analyse.task.analyser;
 
 class MetaFile {
 	

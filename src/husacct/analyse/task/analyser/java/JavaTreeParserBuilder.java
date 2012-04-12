@@ -1,4 +1,4 @@
-package husacct.analyse.abstraction.analyser.java;
+package husacct.analyse.task.analyser.java;
 
 import java.io.IOException;
 import husacct.analyse.infrastructure.antlr.*;

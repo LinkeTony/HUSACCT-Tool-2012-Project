@@ -1,4 +1,4 @@
-package husacct.analyse.abstraction.analyser;
+package husacct.analyse.task.analyser;
 
 import husacct.analyse.domain.famix.FamixObject;
 import java.util.List;
