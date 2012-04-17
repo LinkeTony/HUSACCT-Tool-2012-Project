@@ -44,13 +44,18 @@ public class AnalyseServiceImpl implements IAnalyseService{
 	}
 
 	@Override
-	public DependencyDTO[] getDependency(String from, String to) {
-		return stub.getDependency(from, to);
+	public DependencyDTO[] getDependencies(String from, String to) {
+		return stub.getDependencies(from, to);
 	}
 
 	@Override
-	public DependencyDTO[] getDependency(String from) {
-		return stub.getDependency(from);
+	public DependencyDTO[] getDependenciesFrom(String from) {
+		return stub.getDependenciesFrom(from);
+	}
+	
+	@Override
+	public DependencyDTO[] getDependenciesTo(String to){
+		return stub.getDependenciesTo(to);
 	}
 
 	@Override

@@ -54,7 +54,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 		AnalysedModuleDTO analysedModules = new AnalysedModuleDTO("", "root", "package", analysedSub);
 		analysed = new HashMap<String, ArrayList<Object>>();
 
-		List<AnalysedModuleDTO> rootElement = new ArrayList<AnalysedModuleDTO>();
+		ArrayList<AnalysedModuleDTO> rootElement = new ArrayList<AnalysedModuleDTO>();
 		rootElement.add(analysedModules);
 		GenerateHashmap(rootElement);
 
@@ -101,7 +101,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 	}
 
 	@Override
-	public DependencyDTO[] getDependency(String from, String to) {
+	public DependencyDTO[] getDependencies(String from, String to) {
 
 		ArrayList<DependencyDTO> allDependencies = new ArrayList<DependencyDTO>();
 
@@ -137,7 +137,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 	}
 
 	@Override
-	public DependencyDTO[] getDependency(String from) {
+	public DependencyDTO[] getDependenciesFrom(String from) {
 	
 		ArrayList<DependencyDTO> allDependencies = new ArrayList<DependencyDTO>();
 
@@ -160,6 +160,38 @@ public class AnalyseServiceStub implements IAnalyseService{
 		}
 		
 		return matchDependency;
+	}
+	
+	
+	@Override
+	public DependencyDTO[] getDependenciesTo(String to){
+		ArrayList<DependencyDTO> allDependencies = new ArrayList<DependencyDTO>();
+		
+		for(String key : analysed.keySet()){
+			ArrayList<Object> teest = analysed.get(key);
+			
+			for(DependencyDTO o : (ArrayList<DependencyDTO>) teest.get(1)){
+								
+				if(o.to.indexOf(to) != -1){
+					allDependencies.add(o);
+				}
+			}
+		}
+
+		if(allDependencies.size() <= 0){
+			return new DependencyDTO[0];
+		}
+		
+		DependencyDTO[] dependencies = new DependencyDTO[allDependencies.size()];
+	
+		int iterator = 0;
+		for(DependencyDTO d : allDependencies){
+			dependencies[iterator] = d;
+			iterator++;
+		}
+		
+		
+		return dependencies;
 	}
 
 	@Override
@@ -186,7 +218,15 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 	@Override
 	public AnalysedModuleDTO[] getChildModulesInModule(String from) {
+		if(analysed.get(from) == null){
+			return new AnalysedModuleDTO[0];
+		}
+		
 		AnalysedModuleDTO getElement = (AnalysedModuleDTO) analysed.get(from).get(0);
+		
+		if(getElement.subModules == null){
+			return new AnalysedModuleDTO[0];
+		}
 
 		AnalysedModuleDTO[] modules = new AnalysedModuleDTO[getElement.subModules.size()];
 
@@ -203,13 +243,29 @@ public class AnalyseServiceStub implements IAnalyseService{
 	public AnalysedModuleDTO[] getChildModulesInModule(String from, int depth) {
 		int currentDepth = 0;
 
-
+		if(depth == 0){
+			AnalysedModuleDTO[] modules = this.getChildModulesInModule(from);
+			return modules;
+		}
+		
 		if(depth == 1){
-			return this.getChildModulesInModule(from);
+			AnalysedModuleDTO[] modules = this.getChildModulesInModule(from);
+			for(AnalysedModuleDTO module : modules){
+				module.subModules = null;
+			}
+			return modules;
 		}
 
+		if(analysed.get(from) == null){
+			return new AnalysedModuleDTO[0];
+		}
+		
 		AnalysedModuleDTO getElement = (AnalysedModuleDTO) analysed.get(from).get(0);
 
+		if(getElement.subModules == null){
+			return new AnalysedModuleDTO[0];
+		}
+		
 		AnalysedModuleDTO[] modules = new AnalysedModuleDTO[getElement.subModules.size()];
 
 		int iterator = 0;
@@ -221,7 +277,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 		currentDepth = 1;
 		AnalysedModuleDTO[] rightDepthModules = modules;
 
-		while(currentDepth != depth){
+		while(currentDepth <= depth){
 
 
 			rightDepthModules = NextDepth(rightDepthModules);
@@ -236,6 +292,11 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 	@Override
 	public AnalysedModuleDTO getParentModuleForModule(String child) {
+		if(analysed.get(child) == null){
+			return new AnalysedModuleDTO("", "", "");
+		}
+		
+		
 		if(child.indexOf(".") == -1){
 			return new AnalysedModuleDTO("", "", "");
 		}
@@ -248,7 +309,12 @@ public class AnalyseServiceStub implements IAnalyseService{
 			}
 		}
 
-		return (AnalysedModuleDTO) analysed.get(parentPath).get(0);
+		AnalysedModuleDTO parentModule = (AnalysedModuleDTO) analysed.get(parentPath).get(0);
+		for(AnalysedModuleDTO m : parentModule.subModules){
+			m.subModules = null;
+		}
+		
+		return parentModule;
 	}
 
 
