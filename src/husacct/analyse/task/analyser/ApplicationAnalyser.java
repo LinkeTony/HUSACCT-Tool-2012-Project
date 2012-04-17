@@ -15,25 +15,23 @@ public class ApplicationAnalyser {
 		this.builder = new AnalyserBuilder();
 	}
 	
-	public List<FamixObject> analyseApplication(String workspacePath) {
+	public void analyseApplication(String workspacePath) {
 		//TODO Implement getApplicationDetails from defineservice. 
 		String language = "Java";
 		
-		List<FamixObject> model = new ArrayList<FamixObject>();
 		AbstractAnalyser analyser = builder.getAnalyser(language);
 		SourceFileFinder sourceFileFinder = new SourceFileFinder();
 		try{
 			String sourceFileExtension = getExtensionForLanguage(language);
 			List<MetaFile> fileData = sourceFileFinder.getFileInfoFromProject(workspacePath, sourceFileExtension);
 			for(MetaFile fileInfo: fileData){
-				List<FamixObject> famixObjects = analyser.generateModelFromSource(fileInfo.getPath());
-				model.addAll(famixObjects);
+//				List<FamixObject> famixObjects = analyser.generateModelFromSource(fileInfo.getPath());
+				analyser.generateModelFromSource(fileInfo.getPath());
 			}
 		}
 		catch(Exception e){
 			//TODO Generate Custom Exception
 		}
-		return model;
 	}
 
 	public String[] getAvailableLanguages() {

@@ -8,24 +8,27 @@ import husacct.analyse.infrastructure.antlr.JavaParser;
 class JavaImportGenerator{
 	
 	private FamixImport famixImportObject;
+	
 	private String belongsToClass;
+	private String uniqueName;
+	private String name;
+	
 	public static int nodeType = JavaParser.IMPORT;
 		
 	public JavaImportGenerator(){
 		this.famixImportObject = new FamixImport();
 	}
 	
-	public FamixImport generateFamixImport(CommonTree importTree, String className){
+	public void generateFamixImport(CommonTree importTree, String className){
 		this.belongsToClass = className;
 		fillImportObject(importTree);
-		return famixImportObject;
 	}
 	
 	private void fillImportObject(CommonTree importTree){
 		String importDetails = createImportDetails(importTree, "--");
 		String declaration = convertToImportDeclaration(importDetails, "--");
-		
 		famixImportObject.setImportingClass(this.belongsToClass);
+		
 		famixImportObject.setCompleteImportString(declaration);
 		boolean importsCompletePackage = isPackageImport(declaration);
 		famixImportObject.setIsCompletePackage(isPackageImport(declaration));

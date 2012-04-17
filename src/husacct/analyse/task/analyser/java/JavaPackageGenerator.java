@@ -2,21 +2,21 @@ package husacct.analyse.task.analyser.java;
 
 import husacct.analyse.domain.FamixModelServiceImpl;
 import husacct.analyse.domain.ModelService;
-import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.domain.famix.FamixPackage;
 
 import org.antlr.runtime.tree.CommonTree;
-class JavaPackageGenerator extends JavaGenerator{
+class JavaPackageGenerator{
 
 	String name = "";
 	String belongsToPackage = "";
 	String packageName = "";
+	
 	Boolean nameSet = false;
 	FamixPackage famixPackage = new FamixPackage();
 	final int DOT = 15;
 	final int INDENTIFIER = 164;
 
-	public FamixPackage generateFamix(CommonTree packageNode) {
+	public void generateFamix(CommonTree packageNode) {
 			if(packageNode.getChild(0).getType() == DOT && packageNode.getChild(1) == null){
 				generateFamix((CommonTree)packageNode.getChild(0));
 			}else if(packageNode.getChild(0).getType() == INDENTIFIER && packageNode.getChild(1) == null){
@@ -40,15 +40,18 @@ class JavaPackageGenerator extends JavaGenerator{
 					}
 				}
 			}
-			
-			famixPackage.setName(name);
-			if(belongsToPackage.equals("")){
-				famixPackage.setUniqueName(name);
-			}else{
-				famixPackage.setUniqueName(belongsToPackage+"."+name);
-			}
-			
-			famixPackage.setBelongsToPackage(belongsToPackage.toString());
-		return famixPackage;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getBelongsToPackage() {
+		return belongsToPackage;
+	}
+	
+	public String getUniqueName(){
+		return belongsToPackage + "." + name;
+	}
+	
 }

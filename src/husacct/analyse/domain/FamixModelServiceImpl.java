@@ -6,13 +6,12 @@ import husacct.analyse.domain.famix.FamixModel;
 import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.domain.famix.FamixPackage;
 
-public class FamixModelServiceImpl implements ModelService, ObservableModel{
+public class FamixModelServiceImpl implements ModelService{
 	
-	private static ModelObserver modelObserver;
-	private static FamixModel model;
+	private FamixModel model;
 	
 	public FamixModelServiceImpl(){
-		model = new FamixModel();
+		model = FamixModel.getInstance();
 	}
 	
 	public void createPackage(String uniqueName, String belongsToPackage, String name){
@@ -30,7 +29,6 @@ public class FamixModelServiceImpl implements ModelService, ObservableModel{
 	private boolean addToModel(FamixObject newObject){
 		try {
 			model.addObject(newObject);
-			notifyObservers();
 			return true;
 		} catch (InvalidAttributesException e) {
 			return false;
@@ -38,17 +36,8 @@ public class FamixModelServiceImpl implements ModelService, ObservableModel{
 	}
 
 	@Override
-	public void registerObserver(ModelObserver observer) {
-		modelObserver = observer;
-	}
-
-	@Override
-	public void removeObserver(ModelObserver observer) {
+	public void createImport(String uniqueName, String belongsTo, String name) {
+		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void notifyObservers() {
-		modelObserver.updateModel(model);
 	}
 }

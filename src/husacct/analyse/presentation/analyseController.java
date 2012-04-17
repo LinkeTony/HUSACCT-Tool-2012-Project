@@ -9,6 +9,7 @@ import husacct.analyse.task.AnalyseControlerServiceImpl;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.directory.InvalidAttributesException;
@@ -18,11 +19,11 @@ public class analyseController {
 	
 	private AnalyseControlService service = new AnalyseControlerServiceImpl();
 	private AnalyseServiceStub stub;
-	private FamixModel famixModel;
+	private FamixModel model;
 
 	public analyseController(){
 		stub = new AnalyseServiceStub();
-		famixModel = new FamixModel();
+		model = FamixModel.getInstance();
 	}
  
 	public String[] getAvailableLanguages() {
@@ -32,27 +33,27 @@ public class analyseController {
 	public String  analyseApplication() {
 		//Fill with Stub.. Should be filled with actual data
 		
-		List<FamixObject> famixObjects = service.analyseApplication();
+		List<FamixObject> famixObjects = new ArrayList<FamixObject>();
 		try {
 			for (FamixObject famixObject : famixObjects) {
 				
 				if(famixObject instanceof FamixPackage){
 //					 System.out.println(famixObject.toString());
 				} 
-				famixModel.addObject(famixObject);
+				model.addObject(famixObject);
 			}
 //			System.out.println(famixModel);
 		} catch (InvalidAttributesException e) {
 			e.printStackTrace();
 		}
 		
-		return famixModel.toString();
+		return model.toString();
 	}
 
  
 	 
 	public FamixModel getCompleteModel(){
-		return famixModel;
+		return model;
 	}
 
 	

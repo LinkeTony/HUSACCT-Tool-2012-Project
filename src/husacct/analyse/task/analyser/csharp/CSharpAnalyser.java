@@ -8,12 +8,8 @@ import java.util.List;
 
 public class CSharpAnalyser extends AbstractAnalyser{
 	
-	public List<FamixObject> generateModelFromSource(String sourceFilePath) {
-		List<FamixObject> famixObject = new ArrayList<FamixObject>();
-		
+	public void generateModelFromSource(String sourceFilePath) {
 		//TODO Implement CSharp Logic
-		
-		return famixObject;
 	}
 
 	@Override
@@ -25,7 +21,5 @@ public class CSharpAnalyser extends AbstractAnalyser{
 	public String getFileExtension() {
 		return ".cs";
 	}	
-	
-	
 }		
 

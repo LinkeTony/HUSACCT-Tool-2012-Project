@@ -21,7 +21,7 @@ public class AnalyseServiceImpl implements IAnalyseService{
 
 	public AnalyseServiceImpl(){
 		stub = new AnalyseServiceStub();
-		famixModel = new FamixModel();
+		famixModel = FamixModel.getInstance();
 	}
 
 	@Override

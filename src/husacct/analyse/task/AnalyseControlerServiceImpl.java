@@ -19,8 +19,9 @@ public class AnalyseControlerServiceImpl implements AnalyseControlService{
 	}
 	
 	@Override
-	public List<FamixObject> analyseApplication() {
-		return analyserService.analyseApplication("benchmark_application");
+	public void analyseApplication() {
+//		return analyserService.analyseApplication("benchmark_application");
+		analyserService.analyseApplication("benchmark_application");
 	}
 	
 	@Override

@@ -14,11 +14,34 @@ import javax.naming.directory.InvalidAttributesException;
 public class FamixModel extends FamixObject
 {
 
-	private HashMap<String, FamixBehaviouralEntity> behaviouralEntities = new HashMap<String, FamixBehaviouralEntity>();
-	private HashMap<String, FamixStructuralEntity> structuralEntities = new HashMap<String, FamixStructuralEntity>();
-	private HashMap<String, FamixPackage> packages = new HashMap<String, FamixPackage>();
-	private HashMap<String, FamixClass> classes = new HashMap<String, FamixClass>();
-	private ArrayList<FamixAssociation> associations = new ArrayList<FamixAssociation>();
+	private static FamixModel currentInstance;
+
+	private HashMap<String, FamixBehaviouralEntity> behaviouralEntities;
+	private HashMap<String, FamixStructuralEntity> structuralEntities;
+	private HashMap<String, FamixPackage> packages;
+	private HashMap<String, FamixClass> classes;
+	private ArrayList<FamixAssociation> associations;
+	
+//	private HashMap<String, FamixBehaviouralEntity> behaviouralEntities = new HashMap<String, FamixBehaviouralEntity>();
+//	private HashMap<String, FamixStructuralEntity> structuralEntities = new HashMap<String, FamixStructuralEntity>();
+//	private HashMap<String, FamixPackage> packages = new HashMap<String, FamixPackage>();
+//	private HashMap<String, FamixClass> classes = new HashMap<String, FamixClass>();
+//	private ArrayList<FamixAssociation> associations = 
+	
+	private FamixModel(){
+		associations = new ArrayList<FamixAssociation>();
+		classes = new HashMap<String, FamixClass>();
+		packages = new HashMap<String, FamixPackage>();
+		structuralEntities = new HashMap<String, FamixStructuralEntity>();
+		behaviouralEntities = new HashMap<String, FamixBehaviouralEntity>();
+	}
+	
+	public static FamixModel getInstance(){
+		if(currentInstance == null) {
+			currentInstance = new FamixModel(); 
+		}
+		return currentInstance;
+	}
 
 	public void addObject(Object e) throws InvalidAttributesException
 	{

@@ -4,7 +4,7 @@ import husacct.analyse.domain.famix.FamixModel;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 
-public class AnalyseDomainServiceImpl implements AnalyseDomainService, ModelObserver{
+public class AnalyseDomainServiceImpl implements AnalyseDomainService{
 
 	private FamixModelServiceImpl modelManager;
 	private FamixModel model;
@@ -12,7 +12,6 @@ public class AnalyseDomainServiceImpl implements AnalyseDomainService, ModelObse
 	public AnalyseDomainServiceImpl(){
 		this.modelManager = new FamixModelServiceImpl();
 		this.model = modelManager.getModel();
-		modelManager.registerObserver(this);
 	}	
 	
 	@Override
@@ -49,10 +48,5 @@ public class AnalyseDomainServiceImpl implements AnalyseDomainService, ModelObse
 	public AnalysedModuleDTO getParentModuleForModule(String child) {
 		// TODO
 		return null;
-	}
-
-	@Override
-	public void updateModel(FamixModel model) {
-		this.model = model;
 	}
 }

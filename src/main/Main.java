@@ -2,6 +2,7 @@ package main;
 
 import husacct.analyse.AnalyseServiceImpl;
 import husacct.analyse.IAnalyseService;
+import husacct.analyse.domain.famix.FamixModel;
 
 public class Main {
 
@@ -15,6 +16,7 @@ public class Main {
     	
     	System.out.println("\n Analyse Result of the benchmark application:");
     	analyseService.analyseApplication();
+    	System.out.println(FamixModel.getInstance().toString());
     }
     
 }
