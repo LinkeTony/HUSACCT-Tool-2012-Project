@@ -2,6 +2,7 @@ package husacct.analyse.domain;
 
 import javax.naming.directory.InvalidAttributesException;
 
+import husacct.analyse.domain.famix.FamixClass;
 import husacct.analyse.domain.famix.FamixModel;
 import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.domain.famix.FamixPackage;
@@ -22,8 +23,30 @@ public class FamixModelServiceImpl implements ModelService{
 		addToModel(fPackage);
 	}
 	
-	public FamixModel getModel(){
-		return model;
+	@Override
+	public void createClass(String uniqueName, String name, String belongsToPackage, boolean isAbstract, boolean isInnerClass) {
+		FamixClass fClass = new FamixClass();
+		fClass.setAbstract(isAbstract);
+		fClass.setBelongsToPackage(belongsToPackage);
+		fClass.setIsInnerClass(isInnerClass);
+		fClass.setName(name);
+		addToModel(fClass);
+	}
+
+	@Override
+	public void createClass(String uniqueName, String name, String belongsToPackage, boolean isAbstract, boolean isInnerClass, String belongsToClass) {
+		FamixClass fClass = new FamixClass();
+		fClass.setAbstract(isAbstract);
+		fClass.setBelongsToPackage(belongsToPackage);
+		fClass.setIsInnerClass(isInnerClass);
+		fClass.setName(name);
+		fClass.setBelongsToClass(belongsToClass);
+		addToModel(fClass);
+	}
+
+	@Override
+	public void createImport(String uniqueName, String belongsTo, String name) {
+		
 	}
 	
 	private boolean addToModel(FamixObject newObject){
@@ -34,10 +57,8 @@ public class FamixModelServiceImpl implements ModelService{
 			return false;
 		}
 	}
-
-	@Override
-	public void createImport(String uniqueName, String belongsTo, String name) {
-		// TODO Auto-generated method stub
-		
+	
+	public FamixModel getModel(){
+		return model;
 	}
 }
