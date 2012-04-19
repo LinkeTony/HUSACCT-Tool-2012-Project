@@ -1,11 +1,7 @@
 package husacct.analyse.task.analyser.java;
 
-import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.infrastructure.antlr.JavaParser;
 import husacct.analyse.task.analyser.AbstractAnalyser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class JavaAnalyser extends AbstractAnalyser{
 	

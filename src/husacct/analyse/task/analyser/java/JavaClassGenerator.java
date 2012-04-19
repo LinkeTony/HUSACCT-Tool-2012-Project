@@ -11,7 +11,6 @@ class JavaClassGenerator extends JavaGenerator{
 	private String uniqueName = "";
 	private String belongsToPackage = "";
 	
-	private String belongsToClass = "";
 	private boolean isInnerClass = false; //TODO Goed implementeren. 
 	private boolean isAbstract = false; //TODO Implementeren
 	

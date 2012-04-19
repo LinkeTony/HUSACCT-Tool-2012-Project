@@ -2,43 +2,10 @@ package husacct.analyse.domain.famix;
 
 public class FamixImport extends FamixAssociation{
 	
-	private String importingClass;
-	private String importedModule;
-	private String completeImportString;
-	private boolean importsCompletePackage;
-
-
-	public String getImportingClass() {
-		return importingClass;
-	}
-
-	public void setImportingClass(String importingClass) {
-		this.importingClass = importingClass;
-	}
-	
-	public boolean importsCompletePackage() {
-		return importsCompletePackage;
-	}
-
-	public void setImportsCompletePackage(boolean isCompletePackageImport) {
-		this.importsCompletePackage = isCompletePackageImport;
-	}
-
-	public String getImportedModule() {
-		return importedModule;
-	}
-
-	public void setImportedModule(String importedModule) {
-		this.importedModule = importedModule;
-	}
-	
-	public String getCompleteImportString(){
-		return this.completeImportString;
-	}
-	
-	public void setCompleteImportString(String importString){
-		this.completeImportString = importString;
-	}
+	public String importingClass;
+	public String importedModule;
+	public String completeImportString;
+	public boolean importsCompletePackage;
 	
 	public String toString(){
 		String importRepresentation = "";
