@@ -3,6 +3,7 @@ package husacct.analyse.domain;
 import javax.naming.directory.InvalidAttributesException;
 
 import husacct.analyse.domain.famix.FamixClass;
+import husacct.analyse.domain.famix.FamixImport;
 import husacct.analyse.domain.famix.FamixModel;
 import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.domain.famix.FamixPackage;
@@ -47,8 +48,13 @@ public class FamixModelServiceImpl implements ModelService{
 	}
 
 	@Override
-	public void createImport(String uniqueName, String belongsTo, String name) {
-		
+	public void createImport(String importingClass, String importedModule, String completeImportString, boolean importsCompletePackage) {
+		FamixImport fImport = new FamixImport();
+		fImport.setImportingClass(importingClass);
+		fImport.setCompleteImportString(completeImportString);
+		fImport.setImportedModule(completeImportString);
+		fImport.setImportsCompletePackage(importsCompletePackage);
+		addToModel(fImport);
 	}
 	
 	private boolean addToModel(FamixObject newObject){

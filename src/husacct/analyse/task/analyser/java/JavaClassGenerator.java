@@ -1,13 +1,10 @@
 package husacct.analyse.task.analyser.java;
 
-import husacct.analyse.domain.FamixModelServiceImpl;
-import husacct.analyse.domain.ModelService;
 import husacct.analyse.infrastructure.antlr.JavaParser;
 import org.antlr.runtime.tree.CommonTree;
 
-class JavaClassGenerator{
+class JavaClassGenerator extends JavaGenerator{
 	
-	private ModelService modelService = new FamixModelServiceImpl();
 	private static int classNode = JavaParser.CLASS;
 	
 	private String name = "";
@@ -22,7 +19,7 @@ class JavaClassGenerator{
 		this.belongsToPackage = uniquePackageName;
 	}
 	
-	public void generateFamix(CommonTree commonTree) {
+	public String generateFamix(CommonTree commonTree) {
 		this.name = commonTree.getChild(1).toString();
 		this.uniqueName = belongsToPackage + "." + commonTree.getChild(1).toString();
 		this.isInnerClass = isInnerClass(commonTree);
@@ -31,6 +28,7 @@ class JavaClassGenerator{
 		}else{
 			modelService.createClass(uniqueName, name, belongsToPackage, isAbstract, isInnerClass);
 		}
+		return uniqueName;
 	}
 	
 	@SuppressWarnings("unused")

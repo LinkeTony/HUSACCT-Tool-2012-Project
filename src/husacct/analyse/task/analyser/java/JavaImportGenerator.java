@@ -2,40 +2,31 @@ package husacct.analyse.task.analyser.java;
 
 import java.util.List;
 import org.antlr.runtime.tree.CommonTree;
-import husacct.analyse.domain.famix.FamixImport;
 import husacct.analyse.infrastructure.antlr.JavaParser;
 
-class JavaImportGenerator{
-	
-	private FamixImport famixImportObject;
-	
-	private String belongsToClass;
-	private String uniqueName;
-	private String name;
-	
+class JavaImportGenerator extends JavaGenerator{
+
 	public static int nodeType = JavaParser.IMPORT;
-		
-	public JavaImportGenerator(){
-		this.famixImportObject = new FamixImport();
-	}
 	
+	private String importingClass;
+	private String importedModule;
+	private String completeImportDeclaration;
+	private boolean isCompletePackageImport;
+		
 	public void generateFamixImport(CommonTree importTree, String className){
-		this.belongsToClass = className;
+		this.importingClass = className;
 		fillImportObject(importTree);
+		modelService.createImport(importingClass, importedModule, completeImportDeclaration, isCompletePackageImport);
 	}
 	
 	private void fillImportObject(CommonTree importTree){
 		String importDetails = createImportDetails(importTree, "--");
 		String declaration = convertToImportDeclaration(importDetails, "--");
-		famixImportObject.setImportingClass(this.belongsToClass);
 		
-		famixImportObject.setCompleteImportString(declaration);
-		boolean importsCompletePackage = isPackageImport(declaration);
-		famixImportObject.setIsCompletePackage(isPackageImport(declaration));
-		if(importsCompletePackage){
-			declaration = removeStar(declaration);
-		}
-		famixImportObject.setImportDeclaration(declaration);
+		this.completeImportDeclaration = declaration;
+		this.isCompletePackageImport = isPackageImport(declaration);
+		if(isCompletePackageImport) importedModule = removeStar(declaration);
+		else importedModule = declaration;
 	}
 	
 	private String createImportDetails(CommonTree importTree, String detailSeperator){
