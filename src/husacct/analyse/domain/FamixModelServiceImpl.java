@@ -26,6 +26,7 @@ public class FamixModelServiceImpl implements ModelService{
 	@Override
 	public void createClass(String uniqueName, String name, String belongsToPackage, boolean isAbstract, boolean isInnerClass) {
 		FamixClass fClass = new FamixClass();
+		fClass.setUniqueName(uniqueName);
 		fClass.setAbstract(isAbstract);
 		fClass.setBelongsToPackage(belongsToPackage);
 		fClass.setIsInnerClass(isInnerClass);
@@ -36,6 +37,7 @@ public class FamixModelServiceImpl implements ModelService{
 	@Override
 	public void createClass(String uniqueName, String name, String belongsToPackage, boolean isAbstract, boolean isInnerClass, String belongsToClass) {
 		FamixClass fClass = new FamixClass();
+		fClass.setUniqueName(uniqueName);
 		fClass.setAbstract(isAbstract);
 		fClass.setBelongsToPackage(belongsToPackage);
 		fClass.setIsInnerClass(isInnerClass);

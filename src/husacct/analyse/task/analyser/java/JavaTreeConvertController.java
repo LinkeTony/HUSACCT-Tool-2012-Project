@@ -21,53 +21,39 @@ class JavaTreeConvertController {
 	private String theClass = null;
 	private String thePackage = null;
 	
+	//TODO Wegwerken FamixObjecten --> Verantwoordelijkheid gaat naar generators. 
 	FamixPackage  famixPackageObject;
 	FamixClass famixClassObject;
 	FamixMethod famixMethodObject;
 	List<FamixObject> famixObjects = new ArrayList<FamixObject>();
 	
-	Tree packageTree;
-	Tree classTree;
-	Tree importTree;
-	Tree classTopLevelScopeTree;
-	Tree methodTree;
+	private Tree packageTree;
+	private Tree classTree;
+	private Tree importTree;
+	private Tree classTopLevelScopeTree;
+	private Tree methodTree;
 	
 	public void delegateFamixObjectGenerators(JavaParser javaParser) throws RecognitionException {
-		
 		compilationUnit_return compilationUnit = javaParser.compilationUnit();
 		CommonTree compilationUnitTree = (CommonTree) compilationUnit.getTree();
-
+		
 		packageTree = compilationUnitTree.getFirstChildWithType(JavaParser.PACKAGE);
 		classTree = compilationUnitTree.getFirstChildWithType(JavaParser.CLASS);
+		if(packageTree != null) delegatePackage(packageTree);
+		if(classTree != null) delegateClass(classTree);
 		
-		if(packageTree != null){
-			delegatePackage(packageTree);
-		}
 		
-		if(classTree != null){
-			delegateClass(classTree);
-		}
-		
-//		if (hasMethodes(classTree)){
-//			methodTree = classTree.getChild(2).getChild(1);
-//		}
-		
-		//TODO : skipping interface and annotations, need to added later
+//TODO : skipping interface and annotations, need to added later
+
 //		if(classTree != null && hasType(compilationUnitTree, JavaParser.IMPORT)){
 //			List<CommonTree> importTrees = this.getAllImportTrees(compilationUnitTree);
 //			for(CommonTree importTree : importTrees){
 //				delegateImport(importTree, famixClassObject.getUniqueName());
 //			}
 //		}
-//		
-//		if(classTopLevelScopeTree != null){
-//			delegateTopLevelScopeTree(classTopLevelScopeTree);
-//		}
-//	
-//                if (methodTree != null){
-//                        delegateMethodTree(methodTree);
-//                }
-	
+//		if (hasMethodes(classTree)) methodTree = classTree.getChild(2).getChild(1);
+//		if(classTopLevelScopeTree != null) delegateTopLevelScopeTree(classTopLevelScopeTree);
+//      if (methodTree != null) delegateMethodTree(methodTree);
 	}
 	
 	private List<CommonTree> getAllImportTrees(CommonTree baseTree){
@@ -92,44 +78,27 @@ class JavaTreeConvertController {
 		String unique = javaPackageGenerator.getUniqueName();
 		String name = javaPackageGenerator.getName();
 		String belongsToPackage = javaPackageGenerator.belongsToPackage;
-		this.thePackage = belongsToPackage;
+		this.thePackage = unique;
 		modelService.createPackage(unique, belongsToPackage, name);
 	}
 	
 	public void delegateClass(Tree classTree){
 		JavaClassGenerator javaClassGenerator = new JavaClassGenerator(thePackage);
 		javaClassGenerator.generateFamix((CommonTree)classTree);
-		String belongsToPackage = javaClassGenerator.belongsToPackage;
-		String uniqueName = javaClassGenerator.uniqueName;
-		String name = javaClassGenerator.name;
-		boolean isInnerClass = javaClassGenerator.isInnerClass;
-		boolean isAbstract = javaClassGenerator.isAbstract;
-		if(isInnerClass){
-			String belongsToClass = javaClassGenerator.belongsToClass;
-			modelService.createClass(uniqueName, name, belongsToPackage, isAbstract, isInnerClass, belongsToClass);
+		Tree classTopLevelScopeTreeChild = ((BaseTree) classTree).getFirstChildWithType(JavaParser.CLASS_TOP_LEVEL_SCOPE);
+		if(classTopLevelScopeTree != null){
+			classTopLevelScopeTree = classTopLevelScopeTreeChild;
 		}
-		else{
-			modelService.createClass(uniqueName, name, belongsToPackage, isAbstract, isInnerClass);
-		}
-//		Tree classTopLevelScopeTreeChild = ((BaseTree) classTree).getFirstChildWithType(JavaParser.CLASS_TOP_LEVEL_SCOPE);
-//		if(classTopLevelScopeTree != null){
-//			classTopLevelScopeTree = classTopLevelScopeTreeChild;
-//		}
 	}
 	
 	public void delegateImport(CommonTree importTree, String belongsToClass){
 		JavaImportGenerator javaImportGenerator = new JavaImportGenerator();
-		
-//		FamixObject importObject = javaImportGenerator.generateFamixImport(importTree, belongsToClass);
-//		famixObjects.add(importObject);
 	}
 	
 	private boolean hasMethodes(Tree classTree) {
 		if (classTree != null) {
 			if (classTree.getChildCount() == 3) {
-				if (classTree.getChild(2).getChildCount() > 0){
-					return true;
-				}
+				if(classTree.getChild(2).getChildCount() > 0) return true;
 			}
 		}
 		return false;
@@ -139,16 +108,11 @@ class JavaTreeConvertController {
 		JavaMethodGenerator javaMethodGenerator = new JavaMethodGenerator();
 		javaMethodGenerator.setFamixClassObject(famixClassObject);
 		famixMethodObject = javaMethodGenerator.generateFamix((CommonTree) methodTree);
-		
 		famixObjects.add(famixMethodObject);
-
 	}
 
 	public void delegateAttribute(Tree scopeTree, FamixClass classObject){
-		@SuppressWarnings("unused")
 		JavaAttributeGenerator javaAttributeGenerator = new JavaAttributeGenerator();
-		//TODO Implement Attribute-generator
-		//javaAttributeGenerator.generateFamix(scopeTree);
 	}
 
 	public void delegateTopLevelScopeTree(Tree scopeTree){

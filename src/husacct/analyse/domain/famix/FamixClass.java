@@ -47,14 +47,13 @@ public class FamixClass extends FamixEntity{
 	}
 	
 	@Override
-	public boolean equals(Object object)
-	{
+	public boolean equals(Object object){
 		return object instanceof FamixClass && getUniqueName().equals(((FamixClass) object).getUniqueName());
 	}
 	
 	public String toString(){
 		String classRepresentation = "";
-		classRepresentation += "\nUnique Name: " + this.getUniqueName();
+		classRepresentation += "\nUnique Name: " + getUniqueName();
 		classRepresentation += "\nBelongs to Package: " + this.getBelongsToPackage();
 		classRepresentation += "\nName: " + this.getName();
 		classRepresentation += "\nIs Inner Class: ";
