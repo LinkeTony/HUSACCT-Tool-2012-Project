@@ -1,5 +1,6 @@
 package husacct.common.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnalysedModuleDTO extends AbstractDTO{
@@ -13,6 +14,7 @@ public class AnalysedModuleDTO extends AbstractDTO{
 		this.uniqueName = uniqueName;
 		this.name = name;
 		this.type = type;
+		this.subModules = new ArrayList<AnalysedModuleDTO>();
 	}
 	
 	public AnalysedModuleDTO(String uniqueName, String name, String type, List<AnalysedModuleDTO> subModules){

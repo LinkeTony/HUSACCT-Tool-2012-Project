@@ -7,6 +7,7 @@ import java.util.List;
 
 import husacct.analyse.AnalyseServiceImpl;
 import husacct.analyse.IAnalyseService;
+import husacct.analyse.presentation.analyseController;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 import junit.framework.*;
@@ -469,12 +470,12 @@ public class TestDomein extends TestCase{
 		
 		String locationbasedNameExpected = "locationbased";
 		String locationbasedUniquenameExpected = "domain.locationbased";
-		String locationbasedSubmodulesExpected = null;
+		int locationbasedSubmodulesExpected = 0;
 		String locationbasedTypeExpected = "package";
 		
 		assertEquals(locationbasedNameExpected, locationbasedModule.name);
 		assertEquals(locationbasedUniquenameExpected, locationbasedModule.uniqueName);
-		assertEquals(locationbasedSubmodulesExpected, locationbasedModule.subModules);
+		assertEquals(locationbasedSubmodulesExpected, locationbasedModule.subModules.size());
 		assertEquals(locationbasedTypeExpected, locationbasedModule.type);
 		
 	}
@@ -485,12 +486,14 @@ public class TestDomein extends TestCase{
 		
 		String nameExpected = "";
 		String uniqueNameExpected = "";
-		String submodulesExpected = null;
+		int submodulesExpected = 0;
 		String typeExpected = "";
+		
+		System.out.println(parentModule.subModules);
 		
 		assertEquals(nameExpected, parentModule.name);
 		assertEquals(uniqueNameExpected, parentModule.uniqueName);
-		assertEquals(submodulesExpected, parentModule.subModules);
+		assertEquals(submodulesExpected, parentModule.subModules.size());
 		assertEquals(typeExpected, parentModule.type);
 	}
 	
@@ -515,12 +518,12 @@ public class TestDomein extends TestCase{
 		
 		String nameExpected = "";
 		String uniqueNameExpected = "";
-		String submodulesExpected = null;
+		int submodulesExpected = 0;
 		String typeExpected = "";
 		
 		assertEquals(nameExpected, parentModule.name);
 		assertEquals(uniqueNameExpected, parentModule.uniqueName);
-		assertEquals(submodulesExpected, parentModule.subModules);
+		assertEquals(submodulesExpected, parentModule.subModules.size());
 		assertEquals(typeExpected, parentModule.type);
 	}
 	
@@ -597,35 +600,6 @@ public class TestDomein extends TestCase{
 			return true;
 		}		
 		return false;
-	}
-
-	
-	
-	
-	public void testIets()
-	{ 	
-		
-		
-		System.out.println("Haloo");
-	
-		
-		AnalysedModuleDTO[] test =  service.getRootModules();
-		
-		for (AnalysedModuleDTO tempPack : test){
-			
-			
-			System.out.println("Haloo");
-			
-			AnalysedModuleDTO[] testChild =  service.getChildModulesInModule(tempPack.uniqueName);
-			
-			for (AnalysedModuleDTO tempPackChild : testChild){
-				System.out.println("Childs");
-			}
-			
-		}
-	}
-
-
-	
+	}	
 }
 

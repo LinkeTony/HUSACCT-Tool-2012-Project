@@ -11,61 +11,63 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 	private HashMap<String, ArrayList<Object>> analysed;
 	public AnalyseServiceStub(){
-
-		ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account", "class"));
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends", "class"));
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map", "class"));
-		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History", "class"));
-
-		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
-		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account", "class"));
-		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends", "class"));
-		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map", "class"));		
-
-		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
-		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", "package", foursquareSub));
-		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", "package", latitudeSub));
-
-
-		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
-		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", "package", locationbasedSub));
-
-
-		ArrayList<AnalysedModuleDTO> foursquare1Sub = new ArrayList<AnalysedModuleDTO>();
-		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "AccountDAO", "class"));
-		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "FriendsDAO", "class"));
-		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.IMap", "IMap", "class"));
-		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "HistoryDAO", "class"));
-
-		ArrayList<AnalysedModuleDTO> locationbased1Sub = new ArrayList<AnalysedModuleDTO>();
-		locationbased1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare", "foursquare", "package", foursquare1Sub));
-
-		ArrayList<AnalysedModuleDTO> socialmediaSub = new ArrayList<AnalysedModuleDTO>();
-		socialmediaSub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased", "locationbased", "package", locationbased1Sub));
-
-		ArrayList<AnalysedModuleDTO> infrastructureSub = new ArrayList<AnalysedModuleDTO>();
-		infrastructureSub.add(new AnalysedModuleDTO("infrastructure.socialmedia", "socialmedia", "package", socialmediaSub));
-
-		ArrayList<AnalysedModuleDTO> analysedSub = new ArrayList<AnalysedModuleDTO>();
-		analysedSub.add(new AnalysedModuleDTO("domain", "domain", "package", domainSub));
-		analysedSub.add(new AnalysedModuleDTO("infrastructure", "infrastructure", "package", infrastructureSub));
-
-		AnalysedModuleDTO analysedModules = new AnalysedModuleDTO("", "root", "package", analysedSub);
-		analysed = new HashMap<String, ArrayList<Object>>();
-
-		ArrayList<AnalysedModuleDTO> rootElement = new ArrayList<AnalysedModuleDTO>();
-		rootElement.add(analysedModules);
-		GenerateHashmap(rootElement);
-
-
-		addDependency(new DependencyDTO("domain.locationbased.foursquare.History", "infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "Extends", 10));
-		addDependency(new DependencyDTO("domain.locationbased.latitude.Account", "infrastructure.socialmedia.locationbased.latitude.AccountDAO", "InvocConstructor", 11));
-		addDependency(new DependencyDTO("domain.locationbased.latitude.Friends", "infrastructure.socialmedia.locationbased.latitude.FriendsDAO", "Extends", 10));
-		addDependency(new DependencyDTO("domain.locationbased.foursquare.Map", "infrastructure.socialmedia.locationbased.foursquare.IMap", "Extends", 10));
-		addDependency(new DependencyDTO("domain.locationbased.foursquare.Account", "infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "InvocConstructor", 10));
-		addDependency(new DependencyDTO("domain.locationbased.foursquare.Friends", "infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "Extends", 10));
-		addDependency(new DependencyDTO("domain.locationbased.latitude.Map", "infrastructure.socialmedia.locationbased.latitude.IMap", "Implements", 10));
+		generateModule();
+		
+//
+//		ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
+//		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account", "class"));
+//		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends", "class"));
+//		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map", "class"));
+//		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History", "class"));
+//
+//		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
+//		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account", "class"));
+//		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends", "class"));
+//		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map", "class"));		
+//
+//		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
+//		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", "package", foursquareSub));
+//		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", "package", latitudeSub));
+//
+//
+//		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
+//		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", "package", locationbasedSub));
+//
+//
+//		ArrayList<AnalysedModuleDTO> foursquare1Sub = new ArrayList<AnalysedModuleDTO>();
+//		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "AccountDAO", "class"));
+//		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "FriendsDAO", "class"));
+//		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.IMap", "IMap", "class"));
+//		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "HistoryDAO", "class"));
+//
+//		ArrayList<AnalysedModuleDTO> locationbased1Sub = new ArrayList<AnalysedModuleDTO>();
+//		locationbased1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare", "foursquare", "package", foursquare1Sub));
+//
+//		ArrayList<AnalysedModuleDTO> socialmediaSub = new ArrayList<AnalysedModuleDTO>();
+//		socialmediaSub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased", "locationbased", "package", locationbased1Sub));
+//
+//		ArrayList<AnalysedModuleDTO> infrastructureSub = new ArrayList<AnalysedModuleDTO>();
+//		infrastructureSub.add(new AnalysedModuleDTO("infrastructure.socialmedia", "socialmedia", "package", socialmediaSub));
+//
+//		ArrayList<AnalysedModuleDTO> analysedSub = new ArrayList<AnalysedModuleDTO>();
+//		analysedSub.add(new AnalysedModuleDTO("domain", "domain", "package", domainSub));
+//		analysedSub.add(new AnalysedModuleDTO("infrastructure", "infrastructure", "package", infrastructureSub));
+//
+//		AnalysedModuleDTO analysedModules = new AnalysedModuleDTO("", "root", "package", analysedSub);
+//		analysed = new HashMap<String, ArrayList<Object>>();
+//
+//		ArrayList<AnalysedModuleDTO> rootElement = new ArrayList<AnalysedModuleDTO>();
+//		rootElement.add(analysedModules);
+//		GenerateHashmap(rootElement);
+//
+//
+//		addDependency(new DependencyDTO("domain.locationbased.foursquare.History", "infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "Extends", 10));
+//		addDependency(new DependencyDTO("domain.locationbased.latitude.Account", "infrastructure.socialmedia.locationbased.latitude.AccountDAO", "InvocConstructor", 11));
+//		addDependency(new DependencyDTO("domain.locationbased.latitude.Friends", "infrastructure.socialmedia.locationbased.latitude.FriendsDAO", "Extends", 10));
+//		addDependency(new DependencyDTO("domain.locationbased.foursquare.Map", "infrastructure.socialmedia.locationbased.foursquare.IMap", "Extends", 10));
+//		addDependency(new DependencyDTO("domain.locationbased.foursquare.Account", "infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "InvocConstructor", 10));
+//		addDependency(new DependencyDTO("domain.locationbased.foursquare.Friends", "infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "Extends", 10));
+//		addDependency(new DependencyDTO("domain.locationbased.latitude.Map", "infrastructure.socialmedia.locationbased.latitude.IMap", "Implements", 10));
 
 	}
 
@@ -208,8 +210,11 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 		int iterator = 0;
 		for(AnalysedModuleDTO module : rootElement.subModules){
+			
+			
+			
 			returnModules[iterator] = module;
-			module.subModules = null;
+			module.subModules = new ArrayList<AnalysedModuleDTO>();
 			iterator++;
 		}
 
@@ -218,12 +223,14 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 	@Override
 	public AnalysedModuleDTO[] getChildModulesInModule(String from) {
+		generateModule();
+		
 		if(analysed.get(from) == null){
 			return new AnalysedModuleDTO[0];
 		}
 		
 		AnalysedModuleDTO getElement = (AnalysedModuleDTO) analysed.get(from).get(0);
-		
+
 		if(getElement.subModules == null){
 			return new AnalysedModuleDTO[0];
 		}
@@ -241,6 +248,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 	@Override
 	public AnalysedModuleDTO[] getChildModulesInModule(String from, int depth) {
+		generateModule();
 		int currentDepth = 0;
 
 		if(depth == 0){
@@ -251,7 +259,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 		if(depth == 1){
 			AnalysedModuleDTO[] modules = this.getChildModulesInModule(from);
 			for(AnalysedModuleDTO module : modules){
-				module.subModules = null;
+				module.subModules = new ArrayList<AnalysedModuleDTO>();
 			}
 			return modules;
 		}
@@ -285,13 +293,14 @@ public class AnalyseServiceStub implements IAnalyseService{
 		}
 
 		for(AnalysedModuleDTO m : rightDepthModules){
-			m.subModules = null;
+			m.subModules = new ArrayList<AnalysedModuleDTO>();
 		}
 		return modules;
 	}
 
 	@Override
 	public AnalysedModuleDTO getParentModuleForModule(String child) {
+		generateModule();
 		if(analysed.get(child) == null){
 			return new AnalysedModuleDTO("", "", "");
 		}
@@ -311,7 +320,7 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 		AnalysedModuleDTO parentModule = (AnalysedModuleDTO) analysed.get(parentPath).get(0);
 		for(AnalysedModuleDTO m : parentModule.subModules){
-			m.subModules = null;
+			m.subModules = new ArrayList<AnalysedModuleDTO>();
 		}
 		
 		return parentModule;
@@ -337,4 +346,64 @@ public class AnalyseServiceStub implements IAnalyseService{
 
 		return depthModules;
 	}
+	
+	public void generateModule(){
+		ArrayList<AnalysedModuleDTO> foursquareSub = new ArrayList<AnalysedModuleDTO>();
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Account", "Account", "class"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Friends", "Friends", "class"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.Map", "Map", "class"));
+		foursquareSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare.History", "History", "class"));
+
+		ArrayList<AnalysedModuleDTO> latitudeSub = new ArrayList<AnalysedModuleDTO>();
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Account", "Account", "class"));
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Friends", "Friends", "class"));
+		latitudeSub.add(new AnalysedModuleDTO("domain.locationbased.latitude.Map", "Map", "class"));		
+
+		ArrayList<AnalysedModuleDTO> locationbasedSub = new ArrayList<AnalysedModuleDTO>();
+		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.foursquare", "foursquare", "package", foursquareSub));
+		locationbasedSub.add(new AnalysedModuleDTO("domain.locationbased.latitude", "latitude", "package", latitudeSub));
+
+
+		ArrayList<AnalysedModuleDTO> domainSub = new ArrayList<AnalysedModuleDTO>();
+		domainSub.add(new AnalysedModuleDTO("domain.locationbased", "locationbased", "package", locationbasedSub));
+
+
+		ArrayList<AnalysedModuleDTO> foursquare1Sub = new ArrayList<AnalysedModuleDTO>();
+		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "AccountDAO", "class"));
+		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "FriendsDAO", "class"));
+		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.IMap", "IMap", "class"));
+		foursquare1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "HistoryDAO", "class"));
+
+		ArrayList<AnalysedModuleDTO> locationbased1Sub = new ArrayList<AnalysedModuleDTO>();
+		locationbased1Sub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased.foursquare", "foursquare", "package", foursquare1Sub));
+
+		ArrayList<AnalysedModuleDTO> socialmediaSub = new ArrayList<AnalysedModuleDTO>();
+		socialmediaSub.add(new AnalysedModuleDTO("infrastructure.socialmedia.locationbased", "locationbased", "package", locationbased1Sub));
+
+		ArrayList<AnalysedModuleDTO> infrastructureSub = new ArrayList<AnalysedModuleDTO>();
+		infrastructureSub.add(new AnalysedModuleDTO("infrastructure.socialmedia", "socialmedia", "package", socialmediaSub));
+
+		ArrayList<AnalysedModuleDTO> analysedSub = new ArrayList<AnalysedModuleDTO>();
+		analysedSub.add(new AnalysedModuleDTO("domain", "domain", "package", domainSub));
+		analysedSub.add(new AnalysedModuleDTO("infrastructure", "infrastructure", "package", infrastructureSub));
+
+		AnalysedModuleDTO analysedModules = new AnalysedModuleDTO("", "root", "package", analysedSub);
+		analysed = new HashMap<String, ArrayList<Object>>();
+
+		ArrayList<AnalysedModuleDTO> rootElement = new ArrayList<AnalysedModuleDTO>();
+		rootElement.add(analysedModules);
+		GenerateHashmap(rootElement);
+
+
+		addDependency(new DependencyDTO("domain.locationbased.foursquare.History", "infrastructure.socialmedia.locationbased.foursquare.HistoryDAO", "Extends", 10));
+		addDependency(new DependencyDTO("domain.locationbased.latitude.Account", "infrastructure.socialmedia.locationbased.latitude.AccountDAO", "InvocConstructor", 11));
+		addDependency(new DependencyDTO("domain.locationbased.latitude.Friends", "infrastructure.socialmedia.locationbased.latitude.FriendsDAO", "Extends", 10));
+		addDependency(new DependencyDTO("domain.locationbased.foursquare.Map", "infrastructure.socialmedia.locationbased.foursquare.IMap", "Extends", 10));
+		addDependency(new DependencyDTO("domain.locationbased.foursquare.Account", "infrastructure.socialmedia.locationbased.foursquare.AccountDAO", "InvocConstructor", 10));
+		addDependency(new DependencyDTO("domain.locationbased.foursquare.Friends", "infrastructure.socialmedia.locationbased.foursquare.FriendsDAO", "Extends", 10));
+		addDependency(new DependencyDTO("domain.locationbased.latitude.Map", "infrastructure.socialmedia.locationbased.latitude.IMap", "Implements", 10));
+
+	}
+	
+	
 }
