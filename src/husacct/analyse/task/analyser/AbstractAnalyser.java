@@ -1,8 +1,5 @@
 package husacct.analyse.task.analyser;
 
-import husacct.analyse.domain.famix.FamixObject;
-import java.util.List;
-
 public abstract class AbstractAnalyser {
 	
 	public void analyseApplication(String sourceFilePath){

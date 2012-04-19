@@ -1,10 +1,7 @@
 package husacct.analyse.task.analyser;
 
-import husacct.analyse.domain.famix.FamixObject;
 import husacct.analyse.task.analyser.csharp.CSharpAnalyser;
 import husacct.analyse.task.analyser.java.JavaAnalyser;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationAnalyser {
@@ -16,7 +13,8 @@ public class ApplicationAnalyser {
 	}
 	
 	public void analyseApplication(String workspacePath) {
-		//TODO Implement getApplicationDetails from defineservice. 
+		
+		//TODO Implement getApplicationDetails from defineService. 
 		String language = "Java";
 		
 		AbstractAnalyser analyser = builder.getAnalyser(language);
@@ -25,7 +23,6 @@ public class ApplicationAnalyser {
 			String sourceFileExtension = getExtensionForLanguage(language);
 			List<MetaFile> fileData = sourceFileFinder.getFileInfoFromProject(workspacePath, sourceFileExtension);
 			for(MetaFile fileInfo: fileData){
-//				List<FamixObject> famixObjects = analyser.generateModelFromSource(fileInfo.getPath());
 				analyser.generateModelFromSource(fileInfo.getPath());
 			}
 		}
@@ -35,7 +32,6 @@ public class ApplicationAnalyser {
 	}
 
 	public String[] getAvailableLanguages() {
-		//TODO If possible, add other functionality to dynamically load all possible languages. 
 		String[] availableLanguages = new String[]{
 			new JavaAnalyser().getProgrammingLanguage(),
 			new CSharpAnalyser().getProgrammingLanguage()
