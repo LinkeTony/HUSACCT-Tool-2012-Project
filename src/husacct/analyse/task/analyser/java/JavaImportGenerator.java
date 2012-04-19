@@ -31,6 +31,7 @@ class JavaImportGenerator extends JavaGenerator{
 	
 	private String createImportDetails(CommonTree importTree, String detailSeperator){
 		String details = "";
+			@SuppressWarnings("unchecked")
 			List<CommonTree> importDetail = (List<CommonTree>)importTree.getChildren();
 			if(importDetail != null){
 				if(importDetail.size() < 2){

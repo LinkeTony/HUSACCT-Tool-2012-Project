@@ -29,9 +29,7 @@ class JavaTreeConvertController {
 	
 	private Tree packageTree;
 	private Tree classTree;
-	private Tree importTree;
 	private Tree classTopLevelScopeTree;
-	private Tree methodTree;
 	
 	public void delegateFamixObjectGenerators(JavaParser javaParser) throws RecognitionException {
 		compilationUnit_return compilationUnit = javaParser.compilationUnit();
@@ -45,14 +43,20 @@ class JavaTreeConvertController {
 		
 		
 		//TODO : skipping interface and annotations, need to added later
-
 		if(classTree != null && hasType(compilationUnitTree, JavaParser.IMPORT)){
 			List<CommonTree> importTrees = this.getAllImportTrees(compilationUnitTree);
 			for(CommonTree importTree : importTrees){
 				delegateImport(importTree);
 			}
 		}
-//		if (hasMethodes(classTree)) methodTree = classTree.getChild(2).getChild(1);
+		
+		//TODO Werkt nog niet helemaal zoals het hoort: nullPointers? Herschrijven?
+		if (hasMethods(classTree)){
+			Tree methodTree = classTree.getChild(2).getChild(1);
+			if(methodTree != null)delegateMethodTree(methodTree);
+//			delegateMethodTree(classTree.getChild(2).getChild(1));
+		}
+		
 //		if(classTopLevelScopeTree != null) delegateTopLevelScopeTree(classTopLevelScopeTree);
 //      if (methodTree != null) delegateMethodTree(methodTree);
 	}
@@ -97,21 +101,11 @@ class JavaTreeConvertController {
 		JavaImportGenerator javaImportGenerator = new JavaImportGenerator();
 		javaImportGenerator.generateFamixImport(importTree, this.theClass);
 	}
-	
-	private boolean hasMethodes(Tree classTree) {
-		if (classTree != null) {
-			if (classTree.getChildCount() == 3) {
-				if(classTree.getChild(2).getChildCount() > 0) return true;
-			}
-		}
-		return false;
-	}
 
 	private void delegateMethodTree(Tree methodTree) {
 		JavaMethodGenerator javaMethodGenerator = new JavaMethodGenerator();
 		javaMethodGenerator.setFamixClassObject(famixClassObject);
-		famixMethodObject = javaMethodGenerator.generateFamix((CommonTree) methodTree);
-		famixObjects.add(famixMethodObject);
+		javaMethodGenerator.generateFamix((CommonTree) methodTree, theClass);
 	}
 
 	public void delegateAttribute(Tree scopeTree, FamixClass classObject){
@@ -124,5 +118,14 @@ class JavaTreeConvertController {
 	
 	private boolean hasType(CommonTree completeTree, int nodeType){
 		return completeTree.getFirstChildWithType(nodeType) != null;
+	}
+	
+	private boolean hasMethods(Tree classTree) {
+		if (classTree != null) {
+			if (classTree.getChildCount() == 3) {
+				if(classTree.getChild(2).getChildCount() > 0) return true;
+			}
+		}
+		return false;
 	}
 }
