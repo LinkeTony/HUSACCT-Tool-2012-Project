@@ -39,18 +39,19 @@ class JavaTreeConvertController {
 		
 		packageTree = compilationUnitTree.getFirstChildWithType(JavaParser.PACKAGE);
 		classTree = compilationUnitTree.getFirstChildWithType(JavaParser.CLASS);
+		
 		if(packageTree != null) delegatePackage(packageTree);
 		if(classTree != null) delegateClass(classTree);
 		
 		
-//TODO : skipping interface and annotations, need to added later
+		//TODO : skipping interface and annotations, need to added later
 
-//		if(classTree != null && hasType(compilationUnitTree, JavaParser.IMPORT)){
-//			List<CommonTree> importTrees = this.getAllImportTrees(compilationUnitTree);
-//			for(CommonTree importTree : importTrees){
-//				delegateImport(importTree, famixClassObject.getUniqueName());
-//			}
-//		}
+		if(classTree != null && hasType(compilationUnitTree, JavaParser.IMPORT)){
+			List<CommonTree> importTrees = this.getAllImportTrees(compilationUnitTree);
+			for(CommonTree importTree : importTrees){
+				delegateImport(importTree);
+			}
+		}
 //		if (hasMethodes(classTree)) methodTree = classTree.getChild(2).getChild(1);
 //		if(classTopLevelScopeTree != null) delegateTopLevelScopeTree(classTopLevelScopeTree);
 //      if (methodTree != null) delegateMethodTree(methodTree);
@@ -84,15 +85,17 @@ class JavaTreeConvertController {
 	
 	public void delegateClass(Tree classTree){
 		JavaClassGenerator javaClassGenerator = new JavaClassGenerator(thePackage);
-		javaClassGenerator.generateFamix((CommonTree)classTree);
+		String analysedClass = javaClassGenerator.generateFamix((CommonTree)classTree);
+		if(this.theClass == null) this.theClass = analysedClass;
 		Tree classTopLevelScopeTreeChild = ((BaseTree) classTree).getFirstChildWithType(JavaParser.CLASS_TOP_LEVEL_SCOPE);
 		if(classTopLevelScopeTree != null){
 			classTopLevelScopeTree = classTopLevelScopeTreeChild;
 		}
 	}
 	
-	public void delegateImport(CommonTree importTree, String belongsToClass){
+	public void delegateImport(CommonTree importTree){
 		JavaImportGenerator javaImportGenerator = new JavaImportGenerator();
+		javaImportGenerator.generateFamixImport(importTree, this.theClass);
 	}
 	
 	private boolean hasMethodes(Tree classTree) {

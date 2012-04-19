@@ -1,10 +1,10 @@
 package husacct.analyse.task.analyser.java;
 
-import husacct.analyse.domain.famix.FamixObject;
-
-import org.antlr.runtime.tree.CommonTree;
+import husacct.analyse.domain.FamixModelServiceImpl;
+import husacct.analyse.domain.ModelService;
 
 abstract class JavaGenerator {
 	
-	public abstract FamixObject generateFamix(CommonTree Tree);
+	protected ModelService modelService = new FamixModelServiceImpl();
+
 }

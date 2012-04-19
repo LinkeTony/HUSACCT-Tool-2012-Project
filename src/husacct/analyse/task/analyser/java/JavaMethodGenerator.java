@@ -154,7 +154,7 @@ class JavaMethodGenerator extends JavaGenerator {
 		}
 	}
 
-	@Override
+//	@Override
 	public FamixMethod generateFamix(CommonTree methodTree) {
 		fillMethodObject(methodTree);
 		return famixMethodObject;

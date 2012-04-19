@@ -3,9 +3,9 @@ package husacct.analyse.domain.famix;
 public class FamixImport extends FamixAssociation{
 	
 	private String importingClass;
-	private String importDeclaration;
+	private String importedModule;
 	private String completeImportString;
-	private boolean isCompletePackage;
+	private boolean importsCompletePackage;
 
 
 	public String getImportingClass() {
@@ -16,36 +16,36 @@ public class FamixImport extends FamixAssociation{
 		this.importingClass = importingClass;
 	}
 	
-	public boolean isCompletePackage() {
-		return isCompletePackage;
+	public boolean importsCompletePackage() {
+		return importsCompletePackage;
 	}
 
-	public void setIsCompletePackage(boolean isCompletePackage) {
-		this.isCompletePackage = isCompletePackage;
+	public void setImportsCompletePackage(boolean isCompletePackageImport) {
+		this.importsCompletePackage = isCompletePackageImport;
 	}
 
-	public String getImportDeclaration() {
-		return importDeclaration;
+	public String getImportedModule() {
+		return importedModule;
 	}
 
-	public void setImportDeclaration(String importDeclaration) {
-		this.importDeclaration = importDeclaration;
+	public void setImportedModule(String importedModule) {
+		this.importedModule = importedModule;
 	}
 	
-	public String getCompleteImportString() {
-		return completeImportString;
+	public String getCompleteImportString(){
+		return this.completeImportString;
 	}
-
-	public void setCompleteImportString(String completeImportString) {
-		this.completeImportString = completeImportString;
+	
+	public void setCompleteImportString(String importString){
+		this.completeImportString = importString;
 	}
 	
 	public String toString(){
 		String importRepresentation = "";
 		importRepresentation += "\nimportingClass: " + this.importingClass;
-		importRepresentation += "\nimportDeclaration " + importDeclaration;
+		importRepresentation += "\nimportedModule: " + this.importedModule;
 		importRepresentation += "\nisCompletePackage: ";
-		if(isCompletePackage) importRepresentation += "true";
+		if(importsCompletePackage) importRepresentation += "true";
 		else importRepresentation += "false";
 		importRepresentation += "\ncompleteImportString: " + completeImportString + "\n";
 		return importRepresentation;
@@ -54,20 +54,20 @@ public class FamixImport extends FamixAssociation{
 	public String getTestDetails(boolean showAvailableVariables){
 		String details = "";
 		details += "Complete Declaration of import: " + completeImportString;
-		if(this.isCompletePackage){
-			details += "\n The complete package "  + this.importDeclaration + " was imported";
+		if(this.importsCompletePackage){
+			details += "\n The complete package "  + this.importedModule + " was imported";
 		}
 		else{
-			details += "\n Only Class "  + this.importDeclaration + " was imported";
+			details += "\n Only Class "  + this.importedModule + " was imported";
 		}
 		
 		if(showAvailableVariables){
 			details += "\n\nImported by class: " + this.importingClass + "\n";
 			details += "Variables available in FamixImport-class:\n";
 			details += "Complete Import String: " + completeImportString + "\n"; 
-			details += "Import Declaration: " + importDeclaration + "\n";
+			details += "Import Declaration: " + importedModule + "\n";
 			details += "Boolean isCompletePackage: ";
-			if(isCompletePackage) details += "true\n";
+			if(importsCompletePackage) details += "true\n";
 			else details += "false\n";
 		}
 		
