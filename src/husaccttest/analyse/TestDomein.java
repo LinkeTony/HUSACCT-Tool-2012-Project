@@ -489,8 +489,6 @@ public class TestDomein extends TestCase{
 		int submodulesExpected = 0;
 		String typeExpected = "";
 		
-		System.out.println(parentModule.subModules);
-		
 		assertEquals(nameExpected, parentModule.name);
 		assertEquals(uniqueNameExpected, parentModule.uniqueName);
 		assertEquals(submodulesExpected, parentModule.subModules.size());
