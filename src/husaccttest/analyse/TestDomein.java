@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import husacct.analyse.AnalyseServiceImpl;
+import husacct.analyse.IAnalyseService;
 import husacct.common.dto.AnalysedModuleDTO;
 import husacct.common.dto.DependencyDTO;
 import junit.framework.*;
@@ -601,7 +602,28 @@ public class TestDomein extends TestCase{
 	
 	
 	
-
+	public void testIets()
+	{ 	
+		
+		
+		System.out.println("Haloo");
+	
+		
+		AnalysedModuleDTO[] test =  service.getRootModules();
+		
+		for (AnalysedModuleDTO tempPack : test){
+			
+			
+			System.out.println("Haloo");
+			
+			AnalysedModuleDTO[] testChild =  service.getChildModulesInModule(tempPack.uniqueName);
+			
+			for (AnalysedModuleDTO tempPackChild : testChild){
+				System.out.println("Childs");
+			}
+			
+		}
+	}
 
 
 	
