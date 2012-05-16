@@ -14,6 +14,8 @@ this test is really about checking the correctness of detecting dependencies, ba
 that are used and how the type is declared in the source code. 
 
 An example of the test-case is the difference between the following calls:
+
+
 1. import package.TheClass    .....   private Class AClass extends TheClass
 2. ................................   private Class AClass extends package.TheClass
 
@@ -26,11 +28,11 @@ This tests uses a pre-defined source-code to check to correctness of the java-an
 1.	Open Eclipse IDE. Create a new Java-project with name ‘Java Recognition Test’
 2.	Open your command prompt and ‘cd’ to until you are in the project folder. 
 3.	Type the following commands now:
-a.	git init    <ENTER>
-b.	git remote add origin git@github.com:HUSACCT/HUSACCT-RecognitionTest.git  <ENTER>
-c.	git pull origin master   <ENTER>
-d.	Go back to eclipse, select the project and click ‘project->refresh’   
-e.	The Application, including this document and a result-folder, should now be loaded successfully.
+	a.	git init    <ENTER>
+	b.	git remote add origin git@github.com:HUSACCT/HUSACCT-RecognitionTest.git  <ENTER>
+	c.	git pull origin master   <ENTER>
+	d.	Go back to eclipse, select the project and click ‘project->refresh’   
+	e.	The Application, including this document and a result-folder, should now be loaded successfully.
 
 
 ###Publishing a Test-Result
