@@ -1,7 +1,7 @@
 package extendsconcrete.b;
 
-import extendsabstract.a.*;
+import extendsconcrete.a.*;
 
-public class OtherPackageB extends AbstractClass{
+public class OtherPackageB extends ConcreteClass{
 
 }

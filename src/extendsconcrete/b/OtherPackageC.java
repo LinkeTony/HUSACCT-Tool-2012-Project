@@ -1,5 +1,5 @@
 package extendsconcrete.b;
 
-public class OtherPackageC extends extendsabstract.a.AbstractClass{
+public class OtherPackageC extends extendsconcrete.a.ConcreteClass{
 
 }
