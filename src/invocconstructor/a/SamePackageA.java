@@ -1,6 +1,6 @@
 package invocconstructor.a;
 
-public class SamePackage {
+public class SamePackageA {
 
 	private TheType theType = new TheType();
 	

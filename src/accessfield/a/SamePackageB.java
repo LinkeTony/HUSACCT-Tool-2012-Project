@@ -2,8 +2,10 @@ package accessfield.a;
 
 public class SamePackageB {
 
+	private TheOwner owner = new TheOwner();
+	
 	public SamePackageB(){
-		String s = new TheOwner().theString;
+		owner.theString = "temp";
 	}
 	
 }

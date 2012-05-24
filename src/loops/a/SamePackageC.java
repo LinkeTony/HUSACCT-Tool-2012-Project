@@ -1,9 +1,6 @@
-package loops.b;
+package loops.a;
 
-import loops.a.TheType;
-
-
-public class OtherPackageC {
+public class SamePackageC {
 
 	public void doLoop(){
 		//for each loop met property or field

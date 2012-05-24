@@ -3,9 +3,11 @@ package accessfield.b;
 import accessfield.a.*;
 
 public class OtherPackageB {
+	
+	private TheOwner owner = new TheOwner();
 
 	public OtherPackageB(){
-		String s = new TheOwner().theString;
+		owner.theString = "test";
 	}
 	
 }

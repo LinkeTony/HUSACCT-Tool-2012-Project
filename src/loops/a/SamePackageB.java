@@ -1,8 +1,6 @@
-package loops.b;
+package loops.a;
 
-import loops.a.TheType;
-
-public class OtherPackageB {
+public class SamePackageB {
 
 	
 	public void doLoop(){
